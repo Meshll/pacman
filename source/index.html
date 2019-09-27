@@ -15,12 +15,14 @@
     <canvas id="canvas" width="320" height="320"></canvas>
     <div class="chili">PROGRESS</div>
     <div class="dpad">
-        <img class = "arrow up" src="images/arrow-up.png"/>
-        <img class = "arrow left" src="images/arrow-left.png"/>
-        <img class = "arrow right" src="images/arrow-right.png"/>
-        <img class = "arrow down" src="images/arrow-down.png"/>
+        <img onclick = "goUp()" class = "arrow up" src="images/arrow-up.png"/>
+        <img onclick = "goLeft()" class = "arrow left" src="images/arrow-left.png"/>
+        <img onclick = "goRight()" class = "arrow right" src="images/arrow-right.png"/>
+        <img onclick = "goDown()" class = "arrow down" src="images/arrow-down.png"/>
     </div>
+
     <script src="js/game.js"></script>
+    <script src="js/controller.js"></script>
 </body>
 
 </html>

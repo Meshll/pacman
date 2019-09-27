@@ -67,43 +67,9 @@ var dirY = 0;
 var future = 'N';
 
 
-this.addEventListener("keydown", myEventHandler);
-
 const refX = firebase.database().ref('x');
 const refY = firebase.database().ref('y');
 
-// refX.on('value', function(snapshot) {
-//     x = snapshot.val();
-// })
-
-// refX.on('value', function(snapshot) {
-//     y = snapshot.val();
-// })
-
-function myEventHandler(event) {
-    console.log(event.keyCode);
-    var key = event.keyCode;
-    if (key == 37 || event.key == 'a') {
-        // dirX = -1;
-        // dirY = 0;
-        future = 'L';
-    }
-    if (key == 38 || event.key == 'w') {
-        // dirX = 0;
-        // dirY = -1;
-        future = 'U';
-    }
-    if (key == 39 || event.key == 'd') {
-        // dirX = 1;
-        // dirY = 0;
-        future = 'R';
-    }
-    if (key == 40 || event.key == 's') {
-        // dirX = 0;
-        // dirY = 1;
-        future = 'D';
-    }
-}
 
 function drawBall() {
     ctx.drawImage(pacman[animation_indx], x, y, 21, 21);
@@ -145,8 +111,6 @@ function checkCollision() {
     if (future != 'N') {
         switchDir();
     }
-
-
 
     if (x + dirX * dx >= 15 && x + dirX * dx <= canvas.width - 34) {
         x = x + dirX * dx;
