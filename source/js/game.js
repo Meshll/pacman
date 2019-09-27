@@ -4,16 +4,6 @@ var bh = 300;
 var p = 10;
 var cw = bw + (p * 2) + 1;
 var ch = bh + (p * 2) + 1;
-var animation_indx = 0;
-var step = 0;
-
-let pacman = [];
-
-[1, 2, 3, 2, 1].forEach(function (indx) {
-    let png = new Image();
-    png.src = "images/pacman" + indx + ".png";
-    pacman.push(png);
-});
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -58,6 +48,18 @@ function drawBoard() {
     // }
 }
 
+function drawMap(){
+    for(let i = 0; i < gameboard.length; i++)
+        for (let j = 0; j < gameboard[i].length; j++){
+            if (gameboard[i][j] == 1){
+                ctx.drawImage(brick, 0.5 + p + j * 15 - 15, 0.5 + p + i * 15 - 15, 30, 30);
+            }
+            if (gameboard[i][j] == 2){
+                ctx.drawImage(dot, 0.5 + p + j * 15 - 10, 0.5 + p + i * 15 - 10, 21, 21);
+            }
+        }
+}
+
 var x = canvas.width - 305;
 var y = canvas.height - 305;
 var dx = 2;
@@ -71,18 +73,16 @@ const refX = firebase.database().ref('x');
 const refY = firebase.database().ref('y');
 
 
-function drawBall() {
-    ctx.drawImage(pacman[animation_indx], x, y, 21, 21);
-    step += 1;
-    if (step == 5) {
-        animation_indx++;
-        if (animation_indx == 5) {
-            animation_indx = 0;
-            var angle = 0;
+function drawPacman() {
+    ctx.drawImage(spritePacman[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    spritePacmanStep += 1;
+    if (spritePacmanStep == 5) {
+        spritePacmanIndx++;
+        if (spritePacmanIndx == 5) {
+            spritePacmanIndx = 0;
         }
-        step = 0;
+        spritePacmanStep = 0;
     }
-
 }
 
 function switchDir() {
@@ -111,7 +111,6 @@ function checkCollision() {
     if (future != 'N') {
         switchDir();
     }
-
     if (x + dirX * dx >= 15 && x + dirX * dx <= canvas.width - 34) {
         x = x + dirX * dx;
     }
@@ -122,115 +121,12 @@ function checkCollision() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBoard();
-    drawBall();
+    // drawBoard();
+    drawMap();
+    drawPacman();
     checkCollision();
 
-    console.log(x, y);
+    // console.log(x, y);
 }
 
-setInterval(draw, 10);
-class Pacman {
-    constructor(offsetX, offsetY, scale) {
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
-        this.r = scale / 2;
-        this.x = (scale * 14) + offsetX + this.r;
-        this.y = (scale * 16) + offsetY + this.r;
-        this.scale = scale;
-        this.speed = [0, 0];
-        this.jawWidth = 45;
-        this.opening = false;
-        this.increment = 4.5;
-        this.intention = null;
-        this.direction = null;
-    }
-    draw() {
-        fill('#FFFF00');
-        noStroke();
-        if (this.jawWidth === 0) {
-            ellipse(this.x, this.y, this.r * 2, this.r * 2);
-        } else {
-            push();
-            translate(this.x, this.y);
-            if (this.direction === "UP") {
-                rotate(270);
-            }
-            if (this.direction === "DOWN") {
-                rotate(90);
-            }
-            if (this.direction === "LEFT") {
-                rotate(180);
-            }
-            arc(0, 0, this.r * 2, this.r * 2, this.jawWidth, -Math.abs(this.jawWidth), PIE);
-            pop();
-        }
-        //this.update();
-    }
-    update() {
-        if (!(this.x % this.scale) && !(this.y % this.scale) && this.intention) {
-            if (field.ask(this.x, this.y).allowed.includes(this.intention)) {
-                switch (this.intention) {
-                    case "UP":
-                        this.speed = [0, -1];
-                        break;
-                    case "DOWN":
-                        this.speed = [0, 1];
-                        break;
-                    case "RIGHT":
-                        this.speed = [1, 0];
-                        break;
-                    case "LEFT":
-                        this.speed = [-1, 0];
-                        break;
-                }
-                this.direction = this.intention;
-                this.intention = null;
-            }
-        }
-        if (!(this.x % this.scale) && !(this.y % this.scale)) {
-            const portals = field.portal();
-            const portalIndex = portals.findIndex((el) => el[0] === this.x && el[1] === this.y)
-            if (!!~portalIndex) {
-                const exitPortal = portals[Number(!portalIndex)];
-                this.x = exitPortal[0];
-                this.y = exitPortal[1];
-            }
-        }
-        if (!(this.x % 10) && !(this.y % 10) && !(field.ask(this.x, this.y).allowed.includes(this.direction))) {
-            this.direction = null;
-            this.speed = [0, 0];
-        }
-        if (this.jawWidth === 0) {
-            this.opening = false;
-        }
-        if (this.jawWidth === 45) {
-            this.opening = true;
-        }
-        if (this.opening) {
-            this.jawWidth -= this.increment;
-        } else {
-            this.jawWidth += this.increment;
-        }
-        this.x = this.x + this.speed[0];
-        this.y = this.y + this.speed[1];
-
-    }
-    dir(DIR) {
-        const portals = field.portal();
-        const xBoundary = [this.x - this.scale, this.x + this.scale];
-        const yBoundary = [this.y - this.scale, this.y + this.scale];
-        const portalIndex = portals.findIndex((el) =>
-            el[0] > xBoundary[0] &&
-            el[0] < xBoundary[1] &&
-            el[1] > yBoundary[0] &&
-            el[1] < yBoundary[1]
-        );
-        console.log(!~portalIndex);
-        if (!~portalIndex) {
-            this.intention = DIR;
-        }
-    }
-}
-
-        // setInterval(update, 1000);
+setInterval(draw, 20);
