@@ -47,7 +47,7 @@ function drawBoard() {
 }
 
 function drawMap(){
-    for(let i = 0; i < gameboard.length; i++)
+    for(let i = 0; i < gameboard.length; i++){
         for (let j = 0; j < gameboard[i].length; j++){
             if (gameboard[i][j] == 1){
                 ctx.drawImage(brick, 0.5 + p + j * 15 - 15, 0.5 + p + i * 15 - 15, 30, 30);
@@ -56,9 +56,12 @@ function drawMap(){
                 ctx.drawImage(dot, 0.5 + p + j * 15 - 10, 0.5 + p + i * 15 - 10, 21, 21);
             }
             if (gameboard[i][j] == 3){
-                ctx.drawImage(chili, 0.5 + p + j * 15 - 10, 0.5 + p + i* 15 -10, 21, 21);
+                ctx.drawImage(chili, 0.5 + p + j * 15 - 10, 0.5 + p + i * 15 -10, 21, 21);
             }
         }
+    }
+    i = 2;
+    j = 2;
 }
 
 var x = canvas.width - 305;
@@ -75,7 +78,9 @@ const refY = firebase.database().ref('y');
 
 
 function drawPacman() {
-    ctx.drawImage(spritePacman[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    checkCollision();
+    
+    ctx.drawImage(spritePacman[spritePacmanIndx], x+3, y+3, 15, 15);
     spritePacmanStep += 1;
     if (spritePacmanStep == 5) {
         spritePacmanIndx++;
@@ -116,11 +121,52 @@ function checkCollision() {
     if (future != 'N') {
         switchDir();
     }
-    if (x + dirX * dx >= 15 && x + dirX * dx <= canvas.width - 35) {
-        x = x + dirX * dx;
+    let cordx;
+    let cordy;
+    if(dirY == 0 && dirX == 0) {
+        stop();
+        return;
     }
-    if (y + dirY * dy >= 15 && y + dirY * dy <= canvas.height - 35) {
-        y = y + dirY * dy;
+    if (dirY == -1 || dirX == -1) {
+        cordx = Math.ceil(y/15);
+        cordy = Math.ceil(x/15);
+    }
+    if (dirX == 1 || dirY == 1) {
+        cordy = Math.floor(x/15);
+        cordx = Math.floor(y/15);
+    }
+
+    if (dirX == 1) {
+        cordy = cordy + 1;
+    } 
+    if (dirX == -1) {
+        cordy = cordy - 1;
+    }
+    
+    if (dirY == 1) {
+        cordx = cordx + 1;
+    }
+
+    if (dirY == -1) {
+        cordx = cordx - 1;
+    }
+    if (gameboard[cordx][cordy] == 2) {
+        gameboard[cordx][cordy] = 0;
+        // addscore();
+    }
+    if (gameboard[cordx][cordy] == 3) {
+        gameboard[cordx][cordy] = 0;
+        // powerup();
+    }
+    if (gameboard[cordx][cordy] == 1) {
+        Stop();
+    } else {
+        if (x + dirX * dx >= 15 && x + dirX * dx <= canvas.width - 35) {
+            x = x + dirX * dx;
+        }
+        if (y + dirY * dy >= 15 && y + dirY * dy <= canvas.height - 35) {
+            y = y + dirY * dy;
+        }
     }
 }
 
@@ -129,7 +175,7 @@ function draw() {
     drawBoard();
     drawMap();
     drawPacman();
-    checkCollision();
+    // checkCollision();
 
     // console.log(x, y);
 }
