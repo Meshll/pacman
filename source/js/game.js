@@ -99,6 +99,9 @@ function switchDir() {
             case 'R':
                 dirX = 1, dirY = 0, future = 'N';
                 break;
+            case 'S':
+                dirX = 0, dirY = 0, future = 'N';
+                break;
             default:
                 break;
         }

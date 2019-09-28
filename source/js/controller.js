@@ -16,6 +16,10 @@ function goRight() {
     future = 'R';
 }
 
+function Stop() {
+    future = 'S';
+}
+
 function myEventHandler(event) {
     var key = event.keyCode;
     if (key == 37 || event.key == 'a') {
@@ -29,5 +33,8 @@ function myEventHandler(event) {
     }
     if (key == 40 || event.key == 's') {
         goDown();
+    }
+    if (event.key == 't') {
+        Stop();
     }
 }
