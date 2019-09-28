@@ -1,0 +1,25 @@
+[debug] [2019-09-27T09:56:00.668Z] ----------------------------------------------------------------------
+[debug] [2019-09-27T09:56:00.671Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-09-27T09:56:00.671Z] CLI Version:   6.11.0
+[debug] [2019-09-27T09:56:00.671Z] Platform:      darwin
+[debug] [2019-09-27T09:56:00.671Z] Node Version:  v10.15.3
+[debug] [2019-09-27T09:56:00.688Z] Time:          Fri Sep 27 2019 17:56:00 GMT+0800 (Ulaanbaatar Standard Time)
+[debug] [2019-09-27T09:56:00.688Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-27T09:56:00.726Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-27T09:56:00.727Z] > authorizing via signed-in user
+[debug] [2019-09-27T09:56:00.727Z] [iam] checking project pacman-aa7ce for permissions ["firebase.projects.get"]
+[debug] [2019-09-27T09:56:00.729Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pacman-aa7ce:testIamPermissions  
+
+[debug] [2019-09-27T09:56:03.921Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-27T09:56:03.923Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/pacman-aa7ce  
+ 
+[debug] [2019-09-27T09:56:06.111Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/misheel/Documents/pacman'...
+[info] 
+[debug] [2019-09-27T09:56:06.115Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/97748099063/clients/_:getWebAppConfig  
+ 
+[debug] [2019-09-27T09:56:09.186Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: source
+[info] ✔  hosting: Local server: http://localhost:5000
