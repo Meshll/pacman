@@ -123,7 +123,7 @@ function checkCollision() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBoard();
+    // drawBoard();
     drawMap();
     drawPacman();
     checkCollision();

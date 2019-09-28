@@ -20,9 +20,11 @@ body {
 .header {
     width: 100vw;
     height: 10vh;
-    color: yellow;
+    color: #FF0;
     font-family: 'Press Start 2P';
-    font-size: 20px;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    line-height: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
