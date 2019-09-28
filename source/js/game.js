@@ -56,7 +56,7 @@ function drawMap(){
                 ctx.drawImage(dot, 0.5 + p + j * 15 - 10, 0.5 + p + i * 15 - 10, 21, 21);
             }
             if (gameboard[i][j] == 3){
-                ctx.drawImage(chili, 0.5 + p + j * 15 - 10, 0.5 + p + i* 15 -10, 21)
+                ctx.drawImage(chili, 0.5 + p + j * 15 - 10, 0.5 + p + i* 15 -10, 21, 21);
             }
         }
 }
