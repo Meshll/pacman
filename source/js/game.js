@@ -9,7 +9,6 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 function drawBoard() {
-    // if (x / 15 % 2 == ) {
     for (var x = 0; x <= bw; x += 15) {
         ctx.beginPath();
         ctx.moveTo(0.5 + x + p, p);
@@ -45,7 +44,6 @@ function drawBoard() {
         ctx.lineTo(bw + p - 14, 0.5 + x + p);
         ctx.stroke();
     }
-    // }
 }
 
 function drawMap(){
@@ -65,8 +63,8 @@ function drawMap(){
 
 var x = canvas.width - 305;
 var y = canvas.height - 305;
-var dx = 2;
-var dy = 2;
+var dx = 1;
+var dy = 1;
 var dirX = 1;
 var dirY = 0;
 var future = 'N';
@@ -89,7 +87,8 @@ function drawPacman() {
 }
 
 function switchDir() {
-    if (x % 15 == 0 && y % 15 == 0) {
+    console.log(x, y);
+    if ((2 * x) % 15 == 0 && (2 * y) % 15 == 0) {
         switch (future) {
             case 'U':
                 dirX = 0, dirY = -1, future = 'N';
@@ -114,17 +113,17 @@ function checkCollision() {
     if (future != 'N') {
         switchDir();
     }
-    if (x + dirX * dx >= 15 && x + dirX * dx <= canvas.width - 34) {
+    if (x + dirX * dx >= 15 && x + dirX * dx <= canvas.width - 35) {
         x = x + dirX * dx;
     }
-    if (y + dirY * dy >= 15 && y + dirY * dy <= canvas.height - 34) {
+    if (y + dirY * dy >= 15 && y + dirY * dy <= canvas.height - 35) {
         y = y + dirY * dy;
     }
 }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // drawBoard();
+    drawBoard();
     drawMap();
     drawPacman();
     checkCollision();
@@ -132,4 +131,4 @@ function draw() {
     // console.log(x, y);
 }
 
-setInterval(draw, 20);
+setInterval(draw, 15);
