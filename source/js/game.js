@@ -70,6 +70,7 @@ var dx = 1;
 var dy = 1;
 var dirX = 1;
 var dirY = 0;
+var current = 'R';
 var future = 'N';
 
 
@@ -80,7 +81,21 @@ const refY = firebase.database().ref('y');
 function drawPacman() {
     checkCollision();
 
-    ctx.drawImage(spritePacman[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    if (current == 'R') {
+        ctx.drawImage(spritePacmanRight[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    if (current == 'L') {
+        ctx.drawImage(spritePacmanLeft[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    if (current == 'D') {
+        ctx.drawImage(spritePacmanDown[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    if (current == 'U') {
+        ctx.drawImage(spritePacmanUp[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    console.log(current);
+
+
     spritePacmanStep += 1;
     if (spritePacmanStep == 5) {
         spritePacmanIndx++;
@@ -96,16 +111,16 @@ function switchDir() {
     if ((2 * x) % 15 == 0 && (2 * y) % 15 == 0) {
         switch (future) {
             case 'U':
-                dirX = 0, dirY = -1, future = 'N';
+                dirX = 0, dirY = -1, current = future, future = 'N';
                 break;
             case 'D':
-                dirX = 0, dirY = 1, future = 'N';
+                dirX = 0, dirY = 1, current = future, future = 'N';
                 break;
             case 'L':
-                dirX = -1, dirY = 0, future = 'N';
+                dirX = -1, dirY = 0, current = future, future = 'N';
                 break;
             case 'R':
-                dirX = 1, dirY = 0, future = 'N';
+                dirX = 1, dirY = 0, current = future, future = 'N';
                 break;
             case 'S':
                 dirX = 0, dirY = 0, future = 'N';
