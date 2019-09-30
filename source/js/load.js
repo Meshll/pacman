@@ -31,6 +31,7 @@ var spritePacmanStep = 0;
     let png = new Image();
     png.src = "images/pacman" + indx + ".png";
     spritePacman.push(png);
+
 });
 
 
