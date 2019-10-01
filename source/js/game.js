@@ -46,17 +46,17 @@ function drawBoard() {
     }
 }
 
-function drawMap(){
-    for(let i = 0; i < gameboard.length; i++){
-        for (let j = 0; j < gameboard[i].length; j++){
-            if (gameboard[i][j] == 1){
+function drawMap() {
+    for (let i = 0; i < gameboard.length; i++) {
+        for (let j = 0; j < gameboard[i].length; j++) {
+            if (gameboard[i][j] == 1) {
                 ctx.drawImage(brick, 0.5 + p + j * 15 - 15, 0.5 + p + i * 15 - 15, 30, 30);
             }
-            if (gameboard[i][j] == 2){
+            if (gameboard[i][j] == 2) {
                 ctx.drawImage(dot, 0.5 + p + j * 15 - 10, 0.5 + p + i * 15 - 10, 21, 21);
             }
-            if (gameboard[i][j] == 3){
-                ctx.drawImage(chili, 0.5 + p + j * 15 - 10, 0.5 + p + i * 15 -10, 21, 21);
+            if (gameboard[i][j] == 3) {
+                ctx.drawImage(chili, 0.5 + p + j * 15 - 10, 0.5 + p + i * 15 - 10, 21, 21);
             }
         }
     }
@@ -70,6 +70,7 @@ var dx = 1;
 var dy = 1;
 var dirX = 1;
 var dirY = 0;
+var current = 'R';
 var future = 'N';
 
 
@@ -79,8 +80,22 @@ const refY = firebase.database().ref('y');
 
 function drawPacman() {
     checkCollision();
-    
-    ctx.drawImage(spritePacman[spritePacmanIndx], x+3, y+3, 15, 15);
+
+    if (current == 'R') {
+        ctx.drawImage(spritePacmanRight[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    if (current == 'L') {
+        ctx.drawImage(spritePacmanLeft[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    if (current == 'D') {
+        ctx.drawImage(spritePacmanDown[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    if (current == 'U') {
+        ctx.drawImage(spritePacmanUp[spritePacmanIndx], x + 3, y + 3, 15, 15);
+    }
+    console.log(current);
+
+
     spritePacmanStep += 1;
     if (spritePacmanStep == 5) {
         spritePacmanIndx++;
@@ -96,16 +111,16 @@ function switchDir() {
     if ((2 * x) % 15 == 0 && (2 * y) % 15 == 0) {
         switch (future) {
             case 'U':
-                dirX = 0, dirY = -1, future = 'N';
+                dirX = 0, dirY = -1, current = future, future = 'N';
                 break;
             case 'D':
-                dirX = 0, dirY = 1, future = 'N';
+                dirX = 0, dirY = 1, current = future, future = 'N';
                 break;
             case 'L':
-                dirX = -1, dirY = 0, future = 'N';
+                dirX = -1, dirY = 0, current = future, future = 'N';
                 break;
             case 'R':
-                dirX = 1, dirY = 0, future = 'N';
+                dirX = 1, dirY = 0, current = future, future = 'N';
                 break;
             case 'S':
                 dirX = 0, dirY = 0, future = 'N';
@@ -123,26 +138,26 @@ function checkCollision() {
     }
     let cordx;
     let cordy;
-    if(dirY == 0 && dirX == 0) {
+    if (dirY == 0 && dirX == 0) {
         stop();
         return;
     }
     if (dirY == -1 || dirX == -1) {
-        cordx = Math.ceil(y/15);
-        cordy = Math.ceil(x/15);
+        cordx = Math.ceil(y / 15);
+        cordy = Math.ceil(x / 15);
     }
     if (dirX == 1 || dirY == 1) {
-        cordy = Math.floor(x/15);
-        cordx = Math.floor(y/15);
+        cordy = Math.floor(x / 15);
+        cordx = Math.floor(y / 15);
     }
 
     if (dirX == 1) {
         cordy = cordy + 1;
-    } 
+    }
     if (dirX == -1) {
         cordy = cordy - 1;
     }
-    
+
     if (dirY == 1) {
         cordx = cordx + 1;
     }
@@ -157,7 +172,7 @@ function checkCollision() {
     // ghost only
     // if (gameboard[cordx][cordy] == 3) {
     //     gameboard[cordx][cordy] = 0;
-        // powerup();
+    // powerup();
     // }
     if (gameboard[cordx][cordy] == 1) {
         Stop();
@@ -181,4 +196,4 @@ function draw() {
     // console.log(x, y);
 }
 
-setInterval(draw, 15);
+setInterval(draw, 11);
