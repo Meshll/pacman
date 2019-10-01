@@ -154,10 +154,11 @@ function checkCollision() {
         gameboard[cordx][cordy] = 0;
         // addscore();
     }
-    if (gameboard[cordx][cordy] == 3) {
-        gameboard[cordx][cordy] = 0;
+    // ghost only
+    // if (gameboard[cordx][cordy] == 3) {
+    //     gameboard[cordx][cordy] = 0;
         // powerup();
-    }
+    // }
     if (gameboard[cordx][cordy] == 1) {
         Stop();
     } else {
