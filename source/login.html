@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDahU7RoyLeY_Qs_zOoPkTd3-E7iE20mbE",
+            authDomain: "pacman-bc51b.firebaseapp.com",
+            databaseURL: "https://pacman-bc51b.firebaseio.com",
+            projectId: "pacman-bc51b",
+            storageBucket: "pacman-bc51b.appspot.com",
+            messagingSenderId: "267164456667",
+            appId: "1:267164456667:web:51b4d9383980b61ccc9efe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+    <div class="title">PAC-MAN</div>
+    <div>
+        <div class="play-botton" onclick="gmail()"></div>
+        <div class="press">Press "PLAY"</div>
+
+    </div>
+
+    <div onclick="login()" class="googleSignIn">
+        <div class="gicon"></div>
+        <div>Login with Google</div>
+    </div>
+    <div class="info hide">
+        <div class="login">
+            <div>Logged in as</div>
+            <div id="username"></div>
+        </div>
+        <div onclick="signOut()" class="signout">Sign out</div>
+    </div>
+
+
+    <script src="js/login.js"></script>
+</body>
+
+</html>
