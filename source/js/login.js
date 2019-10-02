@@ -4,6 +4,24 @@ firebase.auth().onAuthStateChanged(function(user) {
         document.getElementsByClassName('info')[0].classList.remove('hide');
         document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
         document.getElementById('username').innerHTML = user.displayName.split(' ')[0];
+
+
+        rooms.get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    let room = doc.data();
+                    room.players.forEach(function(p) {
+                        if (p.uid == player.uid) {
+                            roomId = doc.id;
+                            waitingRoom(roomId);
+                        }
+                    });
+                });
+            })
+            .catch(function(error) {
+                console.log("error", error);
+            });
+
     } else {
         document.getElementsByClassName('info')[0].classList.add('hide');
         document.getElementsByClassName('googleSignIn')[0].classList.remove('hide');
