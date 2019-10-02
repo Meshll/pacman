@@ -1,5 +1,6 @@
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        player = user;
         document.getElementsByClassName('info')[0].classList.remove('hide');
         document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
         document.getElementById('username').innerHTML = user.displayName.split(' ')[0];
