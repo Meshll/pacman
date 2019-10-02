@@ -32,14 +32,14 @@ function roomLoader() {
         console.log("Current data: ", doc.data());
         var room = doc.data();
         room.players.forEach(function(p, index) {
-            if (index == 0 || index == 1) {
+            if (p.role == 0 || p.role == 1) {
                 // GHOST
-                document.getElementById("player" + index).children[0].src = "./images/loader_ghost_active.png"
+                document.getElementById("player" + p.role).children[0].src = "./images/loader_ghost_active.png"
             } else {
                 // PACMAN
-                document.getElementById("player" + index).children[0].src = "./images/loader_pacman_active.png";
+                document.getElementById("player" + p.role).children[0].src = "./images/loader_pacman_active.png";
             }
-            document.getElementById("player" + index).children[1].innerHTML = p.displayName.split(' ')[0];
+            document.getElementById("player" + p.role).children[1].innerHTML = p.displayName.split(' ')[0];
         })
     });
 }

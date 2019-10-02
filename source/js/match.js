@@ -3,10 +3,12 @@ const db = firebase.firestore();
 const rooms = firebase.firestore().collection('rooms');
 
 function createRoom() {
+    var slots = Array(0, 1, 2, 3);
     var emptyRoom = {
         players: [{
             displayName: player.displayName,
-            uid: player.uid
+            uid: player.uid,
+            role: slots[Math.floor(Math.random() * slots.length)]
         }],
         state: 1
     }
@@ -22,10 +24,19 @@ function joinRoom(roomId) {
     db.runTransaction(function(transaction) {
         return transaction.get(room).then(function(doc) {
             let r = doc.data();
+            console.log(r);
+            var slots = Array(0, 1, 2, 3);
+
+            r.players.forEach(function(p) {
+                var index = slots.indexOf(p.role);
+                if (index !== -1) slots.splice(index, 1);
+            })
+
             if (r.state <= 3) {
                 r.players.push({
                     displayName: player.displayName,
-                    uid: player.uid
+                    uid: player.uid,
+                    role: slots[Math.floor(Math.random() * slots.length)]
                 })
                 transaction.update(room, { state: r.state + 1, players: r.players });
             }
