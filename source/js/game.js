@@ -196,4 +196,4 @@ function draw() {
     // console.log(x, y);
 }
 
-setInterval(draw, 11);
+setInterval(draw, 12);
