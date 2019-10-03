@@ -27,31 +27,69 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+
     </script>
-    <script src="js/match.js"></script>
-    <script src="js/login.js"></script>
+    
 </head>
 
-<body>
-    <div class="title">PAC-MAN</div>
-    <div>
-        <div class="play-botton" onclick="matchMaking()"></div>
-        <div class="press">Press "PLAY"</div>
-    </div>
+<body id="papa">
 
-    <div onclick="login()" class="googleSignIn">
+
+    <div class="title">PAC-MAN</div>
+
+
+    <div class="hide2">
+
+        <div class="play-button" onclick="matchMaking()"></div>
+
+        <div class="press">Press "PLAY"</div>
+
+    </div> 
+
+
+     <div onclick="login()" class="googleSignIn">
+
         <div class="gicon"></div>
+
         <div>Login with Google</div>
-    </div>
+
+    </div>  
+
+
     <div class="info hide">
+
         <div class="login">
+
             <div>Logged in as</div>
+
             <div id="username"></div>
         </div>
+
         <div onclick="signOut()" class="signout">Sign out</div>
+
+    </div>
+
+
+
+    <div class="rectangle-2">
+
+        <div class="pleaselogin" style="text-align: center">PLEASE LOG IN TO <br> YOUR GOOGLE ACCOUNT</div>
+
+    <div onclick="login()" class="googleSignIn2">
+
+        <div class="gicon2"></div>
+
+        <div>Login with Google</div>
+
+    </div>
+
     </div>
 
     
+    <script src="js/match.js"></script>
+
+    <script src="js/login.js"></script>
+
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+document.getElementsByClassName("rectangle-2")[0].style.display = "none";
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // playerId = user;
@@ -26,9 +27,19 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     } else {
         document.getElementsByClassName('info')[0].classList.add('hide');
-        document.getElementsByClassName('googleSignIn')[0].classList.remove('hide');
+        // document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
     }
 });
+
+function gmail() {
+    document.getElementsByClassName("hide2")[0].classList.add('hide');
+    document.getElementsByClassName("googleSignIn")[0].classList.add('hide');
+    document.getElementsByClassName("rectangle-2")[0].style.display = "flex";
+    
+    document.getElementById("papa").style.justifyContent = "flex-start";
+
+  
+}
 
 
 
@@ -39,6 +50,7 @@ function login() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
+
         // ...
     }).catch(function(error) {
         // Handle Errors here.

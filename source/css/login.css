@@ -4,6 +4,7 @@
 }
 
 body {
+    justify-content: space-between;
     margin: 0;
     height: 100vh;
     width: 100vw;
@@ -11,11 +12,12 @@ body {
     background-size: cover;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
 }
 
-.play-botton {
+.play-button {
+
     height: 209px;
     width: 209px;
     background-image: url(../images/play.png);
@@ -87,4 +89,50 @@ body {
 
 .signout {
     text-decoration: underline;
+}
+.rectangle-2 {
+
+    justify-content: space-evenly;
+    font-family: 'Press Start 2P', cursive;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin-top: 181px;
+    align-items: center;
+    height: 349px;
+    width: 364px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.7);
+  }
+  .googleSignIn2 {
+      width: 304px;
+      align-items: center;
+    display: flex;
+    align-items: center;
+    background-color: yellow;
+    border-radius: 10px;
+    color: black;
+    height: 80px;
+    padding: 0 10px;
+    margin-bottom: 30px;
+}
+
+.gicon2 {
+    background-image: url('../images/g.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: white;
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+}
+.pleaselogin {
+    margin-bottom: 73px;
+        height: 58px;
+        width: 333px;
+        color: #000;
+        font-family: "Press Start 2P";
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
 }

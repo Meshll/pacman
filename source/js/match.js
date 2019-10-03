@@ -108,7 +108,7 @@ function matchMaking() {
                 console.log("error", error);
             })
     } else {
-        console.log('YOU HAVE TO LOGIN FIRST');
+        gmail();
     }
 }
 
