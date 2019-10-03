@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/waiting_room.css">
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -28,30 +28,37 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
-    <script src="js/match.js"></script>
-    <script src="js/login.js"></script>
 </head>
 
 <body>
     <div class="title">PAC-MAN</div>
-    <div>
-        <div class="play-botton" onclick="matchMaking()"></div>
-        <div class="press">Press "PLAY"</div>
-    </div>
 
-    <div onclick="login()" class="googleSignIn">
-        <div class="gicon"></div>
-        <div>Login with Google</div>
-    </div>
-    <div class="info hide">
-        <div class="login">
-            <div>Logged in as</div>
-            <div id="username"></div>
+    <div class="mid-container">
+        <div class="loading-text">waiting for players...</div>
+        <div id="player0" class="players">
+            <img src="./images/loader_ghost.png">
+            <div></div>
         </div>
-        <div onclick="signOut()" class="signout">Sign out</div>
+        <div id="player1" class="players">
+            <img src="./images/loader_ghost.png">
+            <div></div>
+        </div>
+        <div id="player2" class="players">
+            <img src="./images/loader_pacman.png">
+            <div></div>
+        </div>
+        <div id="player3" class="players">
+            <img src="./images/loader_pacman.png">
+            <div></div>
+        </div>
     </div>
 
-    
+    <div class="play">
+        <div>PRESS TO PLAY</div>
+    </div>
+
+
+    <script src="js/waiting_room.js"></script>
 </body>
 
 </html>

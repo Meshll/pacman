@@ -1,0 +1,90 @@
+@font-face {
+    font-family: pacFont;
+    src: url(../font/PAC-FONT.TTF);
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../images/background.png);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.play-botton {
+    height: 209px;
+    width: 209px;
+    background-image: url(../images/play.png);
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+}
+
+.press {
+    font-family: 'Press Start 2P', cursive;
+    color: yellow;
+    /* width: 220px; */
+    height: 20px;
+    margin-top: 27px;
+}
+
+.title {
+    font-family: pacFont, cursive;
+    font-size: 50px;
+    color: yellow;
+    height: 50px;
+    margin-top: 98px;
+}
+
+.info {
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.googleSignIn {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: yellow;
+    border-radius: 10px;
+    font-family: 'Press Start 2P', cursive;
+    color: black;
+    height: 80px;
+    padding: 0 10px;
+    margin-bottom: 30px;
+}
+
+.gicon {
+    background-image: url('../images/g.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: white;
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.signout {
+    text-decoration: underline;
+}

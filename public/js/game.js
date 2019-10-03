@@ -1,7 +1,4 @@
-var player, index, roomId = "EslAIlenvhWWsz77ysfy", role, data;
-const db = firebase.firestore();
-const rooms = firebase.firestore().collection('rooms');
-
+console.log("Its working!")
 var bw = 300;
 var bh = 300;
 var p = 10;
@@ -11,52 +8,8 @@ var ch = bh + (p * 2) + 1;
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-var x = 15;
-var y = 15;
-var dx = 1;
-var dy = 1;
-var dirX = 1;
-var dirY = 0;
-var current = 'R';
-var future = 'N';
-
-
-
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        player = user;
-        rooms.get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    let room = doc.data();
-                    data = room
-                    room.players.forEach(function(p, ind) {
-                        if (p.uid == player.uid) {
-                            roomId = doc.id;
-                            index = ind;
-                            
-                            x = p.position.x;
-                            y = p.position.y;
-
-                            x = 15; y = 285;
-                            
-                            setInterval(draw, 25);
-                            setInterval(update, 500);
-                        }
-                    });
-                });
-            })
-            .catch(function(error) {
-                console.log("error", error);
-            });
-
-    } else {
-        window.location = "/login.html";
-    }
-});
-
 function drawBoard() {
-    for (let x = 0; x <= bw; x += 15) {
+    for (var x = 0; x <= bw; x += 15) {
         ctx.beginPath();
         ctx.moveTo(0.5 + x + p, p);
         ctx.strokeStyle = "blue";
@@ -65,7 +18,7 @@ function drawBoard() {
         ctx.stroke();
     }
 
-    for (let x = 0; x <= bh; x += 15) {
+    for (var x = 0; x <= bh; x += 15) {
         ctx.beginPath();
         ctx.moveTo(p, 0.5 + x + p);
         ctx.strokeStyle = "blue";
@@ -74,7 +27,7 @@ function drawBoard() {
         ctx.stroke();
     }
 
-    for (let x = 15; x <= bw; x += 30) {
+    for (var x = 15; x <= bw; x += 30) {
         ctx.beginPath();
         ctx.moveTo(0.5 + x + p, p + 15);
         ctx.strokeStyle = "red";
@@ -83,7 +36,7 @@ function drawBoard() {
         ctx.stroke();
     }
 
-    for (let x = 15; x <= bh; x += 30) {
+    for (var x = 15; x <= bh; x += 30) {
         ctx.beginPath();
         ctx.moveTo(p + 15, 0.5 + x + p);
         ctx.strokeStyle = "red";
@@ -111,23 +64,22 @@ function drawMap() {
     j = 2;
 }
 
-function update() {
-    // var usersUpdate = {};
-    // usersUpdate[`players[${index}].position.x`] = x;
-    // usersUpdate[`players[${index}].position.y`] = y;
+var x = canvas.width - 305;
+var y = canvas.height - 305;
+var dx = 1;
+var dy = 1;
+var dirX = 1;
+var dirY = 0;
+var current = 'R';
+var future = 'N';
 
-    rooms.doc(roomId).set({'players/{0}': data.players[0]}).then( k => {
-        console.log(x, y, "!!")
-    }).catch(err => {
-        console.log(err)
-    })
-}
+
+const refX = firebase.database().ref('x');
+const refY = firebase.database().ref('y');
+
+
 function drawPacman() {
     checkCollision();
-
-    data.players[index].position.x = x;
-    data.players[index].position.y = y;
-    console.log(x, y)
 
     if (current == 'R') {
         ctx.drawImage(spritePacmanRight[spritePacmanIndx], x + 3, y + 3, 15, 15);
@@ -141,8 +93,7 @@ function drawPacman() {
     if (current == 'U') {
         ctx.drawImage(spritePacmanUp[spritePacmanIndx], x + 3, y + 3, 15, 15);
     }
-
-    // console.log(current);
+    console.log(current);
 
 
     spritePacmanStep += 1;
@@ -244,3 +195,5 @@ function draw() {
 
     // console.log(x, y);
 }
+
+setInterval(draw, 12);

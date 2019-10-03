@@ -1,7 +1,5 @@
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        // playerId = user;
-        // console.log(playerId)
         player = user;
         document.getElementsByClassName('info')[0].classList.remove('hide');
         document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
@@ -15,7 +13,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                     room.players.forEach(function(p) {
                         if (p.uid == player.uid) {
                             roomId = doc.id;
-                            //waitingRoom(roomId);
+                            waitingRoom(roomId);
                         }
                     });
                 });
@@ -29,6 +27,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         document.getElementsByClassName('googleSignIn')[0].classList.remove('hide');
     }
 });
+
 
 
 
@@ -51,6 +50,7 @@ function login() {
         // ...
     });
 }
+
 
 function signOut() {
     firebase.auth().signOut().then(function() {
