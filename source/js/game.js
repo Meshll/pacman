@@ -4,6 +4,7 @@ var bh = 300;
 var p = 10;
 var cw = bw + (p * 2) + 1;
 var ch = bh + (p * 2) + 1;
+var temp1, temp2;
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -93,7 +94,7 @@ function drawPacman() {
     if (current == 'U') {
         ctx.drawImage(spritePacmanUp[spritePacmanIndx], x + 3, y + 3, 15, 15);
     }
-    console.log(current);
+    //console.log(current);
 
 
     spritePacmanStep += 1;
@@ -107,7 +108,7 @@ function drawPacman() {
 }
 
 function switchDir() {
-    console.log(x, y);
+    //console.log(x, y);
     if ((2 * x) % 15 == 0 && (2 * y) % 15 == 0) {
         switch (future) {
             case 'U':
@@ -151,6 +152,9 @@ function checkCollision() {
         cordx = Math.floor(y / 15);
     }
 
+    temp1 = cordx;
+    temp2 = cordy;
+
     if (dirX == 1) {
         cordy = cordy + 1;
     }
@@ -164,6 +168,21 @@ function checkCollision() {
 
     if (dirY == -1) {
         cordx = cordx - 1;
+    }
+    //console.log(cordx, cordy)
+    if (x % 15 == 1 || y % 15 == 1) {
+        if (temp1 != cordx) {
+            if (gameboard[cordx][cordy] == 1) {
+                cordx = cordx - dirX;
+            }
+            console.log(cordx, cordy)
+        }
+        if (temp2 != cordy) {
+            if (gameboard[cordx][cordy] == 1) {
+                cordy = cordy - dirY;
+            }
+            console.log(cordx, cordy)
+        }
     }
     if (gameboard[cordx][cordy] == 2) {
         gameboard[cordx][cordy] = 0;
