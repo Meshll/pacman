@@ -3,6 +3,8 @@ document.getElementsByClassName('rectangle-3')[0].style.display="none";
 document.getElementsByClassName('withLogin')[0].style.display="none";
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        // playerId = user;
+        // console.log(playerId)
         player = user;
         document.getElementsByClassName('info')[0].classList.remove('hide');
         document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
@@ -14,7 +16,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                     room.players.forEach(function(p) {
                         if (p.uid == player.uid) {
                             roomId = doc.id;
-                            waitingRoom(roomId);
+                            //waitingRoom(roomId);
                         }
                     });
                 });
@@ -38,7 +40,6 @@ function gmail() {
     document.getElementById("papa").style.justifyContent = "flex-start";
     console.log("mailshu")
 }
-
 
 
 
@@ -66,6 +67,7 @@ function login() {
 
 }
 
+<<<<<<< HEAD
 
 function signOutpage() {
     document.getElementsByClassName('info')[0].classList.add('hide');
@@ -75,6 +77,9 @@ function signOutpage() {
 }
         
 function realsignout() {
+=======
+function signOut() {
+>>>>>>> 042b697814a4e791918ed7ae1f1aadad5a1dd0fa
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
         console.log('Signed out!');

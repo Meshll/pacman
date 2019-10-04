@@ -4,35 +4,18 @@ const rooms = firebase.firestore().collection('rooms');
 
 function createRoom() {
     var slots = Array(0, 1, 2, 3);
-    let role = slots[Math.floor(Math.random() * slots.length)]
-    let position = {
-        x : 0, y : 0
-    }
-
-    if(role == 0) {
-        position.x = 0;
-        position.y = 0;
-    } else if(role == 1) {
-        position.x = 100;
-        position.y = 0;
-    } else if(role == 2) {
-        position.x = 0;
-        position.y = 100;
-    } else {
-        position.x = 100;
-        position.y = 100;
-    }
-
     var emptyRoom = {
         players: [{
             displayName: player.displayName,
             uid: player.uid,
-            role: role,
-            position: position
+            role: slots[Math.floor(Math.random() * slots.length)],
+            position : {
+                x : 0,
+                y = 0
+            }
         }],
         state: 1
     }
-    
     rooms.add(emptyRoom).then(ref => {
         console.log("Succesfully created room ");
         waitingRoom(ref.id);
@@ -53,31 +36,11 @@ function joinRoom(roomId) {
                 if (index !== -1) slots.splice(index, 1);
             })
 
-            let role = slots[Math.floor(Math.random() * slots.length)]
-            let position = {
-                x : 0, y : 0
-            }
-
-            if(role == 0) {
-                position.x = 0;
-                position.y = 0;
-            } else if(role == 1) {
-                position.x = 100;
-                position.y = 0;
-            } else if(role == 2) {
-                position.x = 0;
-                position.y = 100;
-            } else {
-                position.x = 100;
-                position.y = 100;
-            }
-            
             if (r.state <= 3) {
                 r.players.push({
                     displayName: player.displayName,
                     uid: player.uid,
-                    role: role,
-                    position: position
+                    role: slots[Math.floor(Math.random() * slots.length)]
                 })
                 transaction.update(room, { state: r.state + 1, players: r.players });
             }
@@ -107,8 +70,8 @@ function matchMaking() {
             .catch(function(error) {
                 console.log("error", error);
             })
-    } else {      
-        gmail();
+    } else {
+        console.log('YOU HAVE TO LOGIN FIRST');
     }
 }
 

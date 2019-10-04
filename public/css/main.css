@@ -1,0 +1,81 @@
+/* @font-face {
+    font-family: "pacfont";
+    src: url(../font/PAC-FONT.TTF);
+  } */
+
+html {
+    font-family: pacfont;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.header {
+    width: 100vw;
+    height: 10vh;
+    color: #FF0;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    line-height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board {
+    height: 30vh;
+    width: 100vw;
+}
+
+canvas {
+    border: white 1px solid;
+}
+
+.chili {
+    width: 100vw;
+    height: 10vh;
+    color: yellow;
+    font-family: 'Press Start 2P';
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dpad {
+    width: 100vw;
+    height: 30vh;
+    position: relative;
+}
+
+.up {
+    position: absolute;
+    top: calc(10%);
+    left: calc(50% - 35.5px);
+}
+
+.down {
+    position: absolute;
+    bottom: calc(10%);
+    left: calc(50% - 35.5px);
+}
+
+.left {
+    position: absolute;
+    top: calc(50% - 35.5px);
+    left: calc(50% - 100px);
+}
+
+.right {
+    position: absolute;
+    top: calc(50% - 35.5px);
+    right: calc(50% - 100px);
+}
