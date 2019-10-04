@@ -1,12 +1,12 @@
 document.getElementsByClassName("rectangle-2")[0].style.display = "none";
+document.getElementsByClassName('rectangle-3')[0].style.display="none";
+document.getElementsByClassName('withLogin')[0].style.display="none";
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         player = user;
         document.getElementsByClassName('info')[0].classList.remove('hide');
         document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
         document.getElementById('username').innerHTML = user.displayName.split(' ')[0];
-
-
         rooms.get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
@@ -25,18 +25,18 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     } else {
         document.getElementsByClassName('info')[0].classList.add('hide');
-        // document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
+        document.getElementsByClassName('googleSignIn')[0].classList.remove('hide');
     }
 });
 
 function gmail() {
-    document.getElementsByClassName("hide2")[0].classList.add('hide');
+    document.getElementsByClassName("withoutLogin")[0].classList.add('hide');
     document.getElementsByClassName("googleSignIn")[0].classList.add('hide');
     document.getElementsByClassName("rectangle-2")[0].style.display = "flex";
-    
+    // document.getElementsByClassName("rectangle-2")[0].style.displa
+    document.getElementsByClassName("rectangle-2")[0].style.justifyContent = "space-between";
     document.getElementById("papa").style.justifyContent = "flex-start";
-
-  
+    console.log("mailshu")
 }
 
 
@@ -49,7 +49,8 @@ function login() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-
+        document.getElementsByClassName('withLogin')[0].style.display="flex";
+        document.getElementsByClassName('withoutLogin')[0].style.display='none';
         // ...
     }).catch(function(error) {
         // Handle Errors here.
@@ -61,15 +62,37 @@ function login() {
         var credential = error.credential;
         // ...
     });
+
+
 }
 
 
-function signOut() {
+function signOutpage() {
+    document.getElementsByClassName('info')[0].classList.add('hide');
+    document.getElementsByClassName("withLogin")[0].classList.add('hide');
+    document.getElementsByClassName('withoutLogin')[0].classList.add('hide');
+    document.getElementsByClassName('rectangle-3')[0].style.display="flex"; 
+}
+        
+function realsignout() {
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
         console.log('Signed out!');
     }).catch(function(error) {
-        // An error happened.
+        // An error happe ned.
         console.log('Error occurred!');
     });
+    document.getElementsByClassName('info')[0].classList.add('hide');
+    document.getElementsByClassName('googleSignIn')[0].classList.remove('hide');
+    document.getElementsByClassName('rectangle-3')[0].style.display="none";
+    document.getElementsByClassName('withLogin')[0].classList.add('hide');
+    document.getElementsByClassName('withoutLogin')[0].classList.remove('hide');
+
+}
+function back(){
+    document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
+    document.getElementsByClassName('info')[0].classList.remove('hide');
+    console.log("BaCK!!!!");
+    document.getElementsByClassName('rectangle-3')[0].style.display="none";
+    // document.getElementsByClassName('withLogin')[0].style.display="true";
 }

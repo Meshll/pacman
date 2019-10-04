@@ -15,6 +15,15 @@ body {
     /* justify-content: space-between; */
     align-items: center;
 }
+.withLogin {
+
+    height: 209px;
+    width: 209px;
+    background-image: url(../images/play.png);
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+}
 
 .play-button {
 
@@ -135,4 +144,62 @@ body {
         font-size: 16px;
         line-height: 24px;
         text-align: center;
+}
+.rectangle-2 {
+
+    height: 243px;
+    width: 364px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.7);
+  }
+
+  .rectangle-3 {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 243px;
+    width: 364px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.7);
+    margin-bottom: 250px;
+  }
+  
+  .group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Press start 2P";
+      margin-bottom: 37px;
+    border-radius: 40px;
+    background-color: yellow;
+    height: 50px;
+    width: 188px;
+  }
+  .sure {
+
+      /* margin-bottom: 32px; */
+      font-family: "Press Start 2P";
+      font-size: 16px;
+      align-items: center;
+      /* margin-top: 76px; */
+  }
+  .icon-cancel {
+      display: flex;
+      justify-content: flex-end;
+    width: 364px;
+  }
+  .icon-cancel img {
+    height: 44px;
+    width: 44px;
+    margin-right: 8px;
+    margin-top: 8px;
+  }
+  .withoutLogin {
+    height: 209px;
+    width: 209px;
+    background-image: url(../images/play.png);
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
 }
