@@ -13,12 +13,12 @@ firebase.auth().onAuthStateChanged(function(user) {
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     let room = doc.data();
-                    room.players.forEach(function(p) {
+                    Object.keys(room.players).forEach(p => {
                         if (p.uid == player.uid) {
                             roomId = doc.id;
                             //waitingRoom(roomId);
                         }
-                    });
+                    })
                 });
             })
             .catch(function(error) {
@@ -35,10 +35,7 @@ function gmail() {
     document.getElementsByClassName("hide2")[0].classList.add('hide');
     document.getElementsByClassName("googleSignIn")[0].classList.add('hide');
     document.getElementsByClassName("rectangle-2")[0].style.display = "flex";
-    
     document.getElementById("papa").style.justifyContent = "flex-start";
-
-  
 }
 
 
@@ -50,7 +47,7 @@ function login() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-
+        console.log(user);
         // ...
     }).catch(function(error) {
         // Handle Errors here.

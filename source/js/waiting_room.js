@@ -9,12 +9,12 @@ firebase.auth().onAuthStateChanged(function(user) {
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     let room = doc.data();
-                    room.players.forEach(function(p) {
+                    Object.keys(room.players).forEach(p => {
                         if (p.uid == player.uid) {
                             roomId = doc.id;
                             roomLoader(roomId);
                         }
-                    });
+                    })
                 });
             })
             .catch(function(error) {
@@ -31,7 +31,8 @@ function roomLoader() {
     rooms.doc(roomId).onSnapshot(function(doc) {
         console.log("Current data: ", doc.data());
         var room = doc.data();
-        room.players.forEach(function(p, index) {
+
+        Object.keys(room.players).forEach((p) => {
             if (p.role == 0 || p.role == 1) {
                 // GHOST
                 document.getElementById("player" + p.role).children[0].src = "./images/loader_ghost_active.png"

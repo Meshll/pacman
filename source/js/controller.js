@@ -1,40 +1,56 @@
 this.addEventListener("keydown", myEventHandler);
 
-function goUp() {
-    future = 'U';
+function goUp(p) {
+    p.future = 'U';
 }
 
-function goDown() {
-    future = 'D';
+function goDown(p) {
+    p.future = 'D';
 }
 
-function goLeft() {
-    future = 'L';
+function goLeft(p) {
+    p.future = 'L';
 }
 
-function goRight() {
-    future = 'R';
+function goRight(p) {
+    p.future = 'R';
 }
 
-function Stop() {
-    future = 'S';
+function Stop(p) {
+    p.future = 'S';
 }
 
 function myEventHandler(event) {
     var key = event.keyCode;
     if (key == 37 || event.key == 'a') {
-        goLeft();
+        goLeft(me);
     }
     if (key == 38 || event.key == 'w') {
-        goUp();
+        goUp(me);
     }
     if (key == 39 || event.key == 'd') {
-        goRight();
+        goRight(me);
     }
     if (key == 40 || event.key == 's') {
-        goDown();
+        goDown(me);
     }
     if (event.key == 't') {
-        Stop();
+        Stop(me);
+    }
+    updatePos();
+}
+
+function sendKeys(v){
+    if (v == 'L'){
+        goLeft(me);
+    }
+    if (v == 'R'){
+        goRight(me);
+    }
+    if (v == 'U'){
+        goUp(me);
+    }
+    if (v == 'D'){
+        goDown(me);
     }
 }
