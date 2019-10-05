@@ -117,7 +117,7 @@ function matchMaking() {
             .catch(function(error) {
                 console.log("error", error);
             })
-    } else {
+    } else {      
         gmail();
     }
 }
