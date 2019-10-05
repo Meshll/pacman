@@ -6,6 +6,9 @@ var cw = bw + (p * 2) + 1;
 var ch = bh + (p * 2) + 1;
 var temp1, temp2;
 
+let cordx;
+let cordy;
+
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -81,7 +84,6 @@ const refY = firebase.database().ref('y');
 
 function drawPacman() {
     checkCollision();
-
     if (current == 'R') {
         ctx.drawImage(spritePacmanRight[spritePacmanIndx], x + 3, y + 3, 15, 15);
     }
@@ -99,7 +101,9 @@ function drawPacman() {
 
     spritePacmanStep += 1;
     if (spritePacmanStep == 5) {
-        spritePacmanIndx++;
+        // if (dirY != 0 && dirX != 0) {
+            spritePacmanIndx++;
+        // }
         if (spritePacmanIndx == 5) {
             spritePacmanIndx = 0;
         }
@@ -111,20 +115,41 @@ function switchDir() {
     //console.log(x, y);
     if ((2 * x) % 15 == 0 && (2 * y) % 15 == 0) {
         switch (future) {
+            case 'W':
+                console.log("There is a wall")
+                break;
             case 'U':
+                if (gameboard[cordx - 1][cordy] == 1) {
+                    break;
+                }
                 dirX = 0, dirY = -1, current = future, future = 'N';
+                something();
                 break;
             case 'D':
-                dirX = 0, dirY = 1, current = future, future = 'N';
+                console.log(cordx, cordy)
+                if (gameboard[cordx + 1][cordy] == 1) {
+                    break;
+                }
+                    dirX = 0, dirY = 1, current = future, future = 'N';
+                something();
                 break;
             case 'L':
+                if (gameboard[cordx][cordy - 1] == 1) {
+                    break;
+                }
                 dirX = -1, dirY = 0, current = future, future = 'N';
+                something();
                 break;
             case 'R':
+                if (gameboard[cordx][cordy + 1] == 1) {
+                    break;
+                }
                 dirX = 1, dirY = 0, current = future, future = 'N';
+                something();
                 break;
             case 'S':
                 dirX = 0, dirY = 0, future = 'N';
+                something();
                 break;
             default:
                 break;
@@ -132,29 +157,7 @@ function switchDir() {
     }
 }
 
-
-function checkCollision() {
-    if (future != 'N') {
-        switchDir();
-    }
-    let cordx;
-    let cordy;
-    if (dirY == 0 && dirX == 0) {
-        stop();
-        return;
-    }
-    if (dirY == -1 || dirX == -1) {
-        cordx = Math.ceil(y / 15);
-        cordy = Math.ceil(x / 15);
-    }
-    if (dirX == 1 || dirY == 1) {
-        cordy = Math.floor(x / 15);
-        cordx = Math.floor(y / 15);
-    }
-
-    temp1 = cordx;
-    temp2 = cordy;
-
+function something() {
     if (dirX == 1) {
         cordy = cordy + 1;
     }
@@ -169,21 +172,33 @@ function checkCollision() {
     if (dirY == -1) {
         cordx = cordx - 1;
     }
-    //console.log(cordx, cordy)
-    if (x % 15 == 1 || y % 15 == 1) {
-        if (temp1 != cordx) {
-            if (gameboard[cordx][cordy] == 1) {
-                cordx = cordx - dirX;
-            }
-            console.log(cordx, cordy)
-        }
-        if (temp2 != cordy) {
-            if (gameboard[cordx][cordy] == 1) {
-                cordy = cordy - dirY;
-            }
-            console.log(cordx, cordy)
-        }
+}
+
+
+function checkCollision() {
+    if (future != 'N' && future != 'W') {
+        switchDir();
     }
+    if (dirY == 0 && dirX == 0) {
+        stop();
+        return;
+    }
+    if (dirY == -1 || dirX == -1) {
+        cordx = Math.ceil(y / 15);
+        cordy = Math.ceil(x / 15);
+    }
+    if (dirX == 1 || dirY == 1) {
+        cordy = Math.floor(x / 15);
+        cordx = Math.floor(y / 15);
+    }
+    // console.log(cordx)
+    //     console.log(cordy);
+    if (x % 15 == 0 || y % 15 == 0) {
+        temp1 = cordx;
+        temp2 = cordy;
+    }
+    
+
     if (gameboard[cordx][cordy] == 2) {
         gameboard[cordx][cordy] = 0;
         // addscore();
@@ -193,7 +208,8 @@ function checkCollision() {
     //     gameboard[cordx][cordy] = 0;
     // powerup();
     // }
-    if (gameboard[cordx][cordy] == 1) {
+    console.log(cordx + dirY,cordy + dirX )
+    if (gameboard[cordx + dirY][cordy + dirX] == 1) {
         Stop();
     } else {
         if (x + dirX * dx >= 15 && x + dirX * dx <= canvas.width - 35) {
