@@ -115,9 +115,6 @@ function switchDir() {
     //console.log(x, y);
     if ((2 * x) % 15 == 0 && (2 * y) % 15 == 0) {
         switch (future) {
-            case 'W':
-                console.log("There is a wall")
-                break;
             case 'U':
                 if (gameboard[cordx - 1][cordy] == 1) {
                     break;
