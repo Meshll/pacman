@@ -20,12 +20,12 @@ firebase.auth().onAuthStateChanged(function (user) {
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     let room = doc.data();
-                    room.players.forEach(function (p) {
+                    Object.keys(room.players).forEach(p => {
                         if (p.uid == player.uid) {
                             roomId = doc.id;
                             waitingRoom(roomId);
                         }
-                    });
+                    })
                 });
             })
             .catch(function (error) {
