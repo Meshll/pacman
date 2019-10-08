@@ -4,14 +4,41 @@ const rooms = firebase.firestore().collection('rooms');
 
 function createRoom() {
     var slots = Array(0, 1, 2, 3);
-    var emptyRoom = {
-        players: [{
-            displayName: player.displayName,
-            uid: player.uid,
-            role: slots[Math.floor(Math.random() * slots.length)]
-        }],
-        state: 1
+    let role = slots[Math.floor(Math.random() * slots.length)]
+    let position = {
+        x : 0, y : 0, current: 'R', future: 'N', dirX: 1, dirY: 0, role: 0
     }
+
+    var emptyRoom = {
+        "players": {},
+        "state": 1
+    }
+
+    if(role == 0) {
+        position.x = 0;
+        position.y = 0;
+        position.role = role;
+    } else if(role == 1) {
+        position.x = 100;
+        position.y = 0;
+        position.role = role;
+    } else if(role == 2) {
+        position.x = 0;
+        position.y = 100;
+        position.role = role;
+    } else {
+        position.x = 100;
+        position.y = 100;
+        position.role = role;
+    }
+    emptyRoom["players"][role] = {
+        displayName: player.displayName,
+        uid: player.uid,
+        role: role,
+        position : position
+    }
+    console.log(emptyRoom);
+    
     rooms.add(emptyRoom).then(ref => {
         console.log("Succesfully created room ");
         waitingRoom(ref.id);
@@ -27,17 +54,41 @@ function joinRoom(roomId) {
             console.log(r);
             var slots = Array(0, 1, 2, 3);
 
-            r.players.forEach(function(p) {
-                var index = slots.indexOf(p.role);
-                if (index !== -1) slots.splice(index, 1);
+            Object.keys(r.players).forEach(p => {
+                var index = p;
+                slots.splice(index, 1);
             })
 
+            let role = slots[Math.floor(Math.random() * slots.length)]
+            let position = {
+                x : 0, y : 0, current: 'R', future: 'N', dirX: 1, dirY: 0, role: 0
+            }
+
+            if(role == 0) {
+                position.x = 0;
+                position.y = 0;
+                position.role = role;
+            } else if(role == 1) {
+                position.x = 100;
+                position.y = 0;
+                position.role = role;
+            } else if(role == 2) {
+                position.x = 0;
+                position.y = 100;
+                position.role = role;
+            } else {
+                position.x = 100;
+                position.y = 100;
+                position.role = role;
+            }
+            
             if (r.state <= 3) {
-                r.players.push({
+                r["players"][role] = {
                     displayName: player.displayName,
                     uid: player.uid,
-                    role: slots[Math.floor(Math.random() * slots.length)]
-                })
+                    role: role,
+                    position : position
+                }
                 transaction.update(room, { state: r.state + 1, players: r.players });
             }
         });
@@ -66,17 +117,16 @@ function matchMaking() {
             .catch(function(error) {
                 console.log("error", error);
             })
-    } else {
+    } else {      
         gmail();
     }
 }
-
 
 function waitingRoom(roomId) {
     console.log('waiting room to load ', roomId);
     rooms.doc(roomId).onSnapshot(doc => {
         v = doc.data();
-        v.players.forEach(function(p) {
+        Object.keys(v.players).forEach( p => {
             if (p.uid == player.uid) {
                 window.location = "/waiting_room.html"
             }

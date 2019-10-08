@@ -28,27 +28,50 @@
         // Initialize Firebases
         firebase.initializeApp(firebaseConfig);
     </script>
+
 </head>
 
-<body>
+<body id="papa">
     <div class="title">PAC-MAN</div>
-    <div>
-        <div class="play-botton" onclick="matchMaking()"></div>
+    <div class="withLogIn hide">
+        <div class="play-button" onclick="matchMaking()"></div>
+        <div class="press">Press "PLAY"</div>
+    </div>
+    <div class="withoutLogIn">
         <div class="play-button" onclick="gmail()"></div>
         <div class="press">Press "PLAY"</div>
     </div>
-
     <div onclick="login()" class="googleSignIn">
         <div class="gicon"></div>
         <div>Login with Google</div>
     </div>
-    <div class="info hide">
-        <div class="login">
-            <div>Logged in as</div>
-            <div id="username"></div>
-        </div>
-        <div onclick="signOut()" class="signout">Sign out</div>
+
+    
+    
+    
+    <div class="rectangle-2 hide">
+        <div class="x" onclick="back1()"><img src="images/icon _ cancel.png" alt=""></div>
+        <div class="pleaselogin" style="text-align: center">PLEASE LOG IN TO <br> YOUR GOOGLE ACCOUNT</div>
+        <div onclick="login()" class="googleSignIn2">
+            <div class="gicon2"></div>
+            <div>Login with Google</div>
+        </div>            
     </div>
+
+    <div class="info hide" id="haha">
+            <div class="login">
+                <div>Logged in as</div>
+                <div id="username"></div>
+            </div>
+            <div onclick="signOutpage()" class="signout">Sign out</div>
+    </div>
+
+    <div class="rectangle-3 hide" id="hide">
+        <div class="icon-cancel" onclick="back()"><img src="images/icon _ cancel.png" alt=""></div>
+        <div class="sure">ARE YOU SURE WANT <br> SIGN OUT</div>
+        <div class="group" onclick="realsignout()">SIGN OUT</div>
+    </div>
+
 
     <script src="js/match.js"></script>
     <script src="js/login.js"></script>
