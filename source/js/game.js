@@ -90,6 +90,19 @@ function drawMap() {
     j = 2;
 }
 
+function teleport() {
+    if (y == 135 && x == 0) {
+        x = 299;
+        dirY = 0;
+        dirX = -1;
+    }
+    if (y == 135 && x == 300) {
+        x = 1;
+        dirY = 0;
+        dirX = 1;
+    }
+}
+
 function updatePos() {
     // console.log(x, y);
     rooms.doc(roomId).update({
@@ -126,7 +139,7 @@ function drawPacman(p) {
 
 function switchDir(p) {
     //console.log(x, y);
-    if ((2 * x) % 15 == 0 && (2 * y) % 15 == 0) {
+    if ((2 * p.x) % 15 == 0 && (2 * p.y) % 15 == 0) {
         switch (p.future) {
             case 'U':
                 if (gameboard[cordx - 1][cordy] == 1) {
@@ -140,7 +153,7 @@ function switchDir(p) {
                 if (gameboard[cordx + 1][cordy] == 1) {
                     break;
                 }
-                    p.dirX = 0, p.dirY = 1, p.current = p.future, p.future = 'N';
+                p.dirX = 0, p.dirY = 1, p.current = p.future, p.future = 'N';
                 something(p);
                 break;
             case 'L':
@@ -166,6 +179,8 @@ function switchDir(p) {
         }
     }
 }
+
+// document.getElementById('score').innerHTML[0].score
 
 function something() {
     if (p.dirX == 1) {
