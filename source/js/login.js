@@ -2,9 +2,7 @@
 firebase.auth().onAuthStateChanged(function (user) {
     console.log('user: ', user);
     if (user) {
-        playerId = user;
-        console.log(playerId)
-        player = user; 
+        player = user;
         document.getElementsByClassName("googleSignIn")[0].classList.add('hide');
         document.getElementsByClassName('withoutLogin')[0].classList.add('hide');
         document.getElementsByClassName('rectangle-2')[0].classList.add('hide');
@@ -12,10 +10,16 @@ firebase.auth().onAuthStateChanged(function (user) {
         document.getElementsByClassName('info')[0].classList.remove('hide');
         document.getElementsByClassName('rectangle-2')[0].style.display = 'none';
         document.getElementById('username').innerHTML = user.displayName.split(' ')[0];
-        document.getElementById("papa").style.justifyContent ='space-between';
+        document.getElementById("papa").style.justifyContent = 'space-between';
 
-        // document.getElementsByClassName('info').style.display='flex';
-        
+        // document.getElementsByClassName('info').style.display='flex';'
+        users.where("uid", "==", player.uid).get().then(snapshot => {
+            if (snapshot.empty) {
+                createUser();
+                return;
+            }
+        })
+
         rooms.get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
@@ -41,12 +45,19 @@ firebase.auth().onAuthStateChanged(function (user) {
     }
 });
 
+
+function createUser(){
+    users.doc(player.uid).set({
+        displayName: player.displayName.split(' ')[0]
+    })
+}
+
 function gmail() {
-   document.getElementsByClassName('withoutLogIn')[0].classList.add('hide');
-   document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
-   document.getElementsByClassName('rectangle-2')[0].classList.remove('hide');
-   document.getElementsByClassName('rectangle-2')[0].style.display = 'flex';
-   document.getElementById("papa").style.justifyContent = "flex-start";
+    document.getElementsByClassName('withoutLogIn')[0].classList.add('hide');
+    document.getElementsByClassName('googleSignIn')[0].classList.add('hide');
+    document.getElementsByClassName('rectangle-2')[0].classList.remove('hide');
+    document.getElementsByClassName('rectangle-2')[0].style.display = 'flex';
+    document.getElementById("papa").style.justifyContent = "flex-start";
 }
 
 
@@ -78,7 +89,7 @@ function signOutpage() {
     document.getElementsByClassName('withLogin')[0].classList.add('hide');
     document.getElementsByClassName('info')[0].classList.add('hide');
     document.getElementsByClassName('rectangle-3')[0].classList.remove('hide');
-    document.getElementsByClassName('rectangle-3')[0].style.display='flex';
+    document.getElementsByClassName('rectangle-3')[0].style.display = 'flex';
     document.getElementsByClassName('rectangle-2')[0].classList.add('hide');
     document.getElementsByClassName('rectangle-2')[0].style.display = 'none';
 }
@@ -93,7 +104,7 @@ function realsignout() {
     });
     document.getElementsByClassName('info')[0].classList.add('hide');
     document.getElementsByClassName('rectangle-3')[0].classList.add('hide');
-    document.getElementsByClassName('rectangle-3')[0].style.display='none';
+    document.getElementsByClassName('rectangle-3')[0].style.display = 'none';
     document.getElementsByClassName('WithLogin')[0].classList.add('hide');
     document.getElementsByClassName('withoutLogIn')[0].classList.remove('hide');
     document.getElementsByClassName('googleSignIn')[0].classList.remove('hide');
@@ -102,13 +113,13 @@ function realsignout() {
 function back() {
     document.getElementsByClassName('info')[0].classList.remove('hide');
     document.getElementsByClassName('rectangle-3')[0].classList.add('hide');
-    document.getElementsByClassName('rectangle-3')[0].style.display='none';
+    document.getElementsByClassName('rectangle-3')[0].style.display = 'none';
     document.getElementsByClassName('WithLogin')[0].classList.remove('hide');
     document.getElementsByClassName('rectangle-2')[0].classList.add('hide');
 }
 function back1() {
     document.getElementsByClassName('rectangle-2')[0].style.display = 'none';
-    document.getElementById("papa").style.justifyContent ='space-between';
+    document.getElementById("papa").style.justifyContent = 'space-between';
     document.getElementsByClassName('rectangle-2')[0].classList.add('hide');
     document.getElementsByClassName('withoutLogin')[0].classList.remove('hide');
     document.getElementsByClassName("googleSignIn")[0].classList.remove('hide');

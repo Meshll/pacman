@@ -1,6 +1,7 @@
 var player;
 const db = firebase.firestore();
 const rooms = firebase.firestore().collection('rooms');
+const users = firebase.firestore().collection('users');
 
 function createRoom() {
     var slots = Array(0, 1, 2, 3);
@@ -33,10 +34,13 @@ function createRoom() {
     }
     emptyRoom["players"][role] = {
         displayName: player.displayName,
-        uid: player.uid,
-        role: role,
-        position : position
+        uid: player.uid
     }
+    users.doc(player.uid).update({
+        role: role,
+        position: position
+    });
+
     console.log(emptyRoom);
     
     rooms.add(emptyRoom).then(ref => {
@@ -85,10 +89,14 @@ function joinRoom(roomId) {
             if (r.state <= 3) {
                 r["players"][role] = {
                     displayName: player.displayName,
-                    uid: player.uid,
-                    role: role,
-                    position : position
+                    uid: player.uid
                 }
+
+                users.doc(player.uid).update({
+                    role: role,
+                    position: position
+                });
+
                 transaction.update(room, { state: r.state + 1, players: r.players });
             }
         });
