@@ -9,6 +9,10 @@ var bh = 300;
 var p = 10;
 var cw = bw + (p * 2) + 1;
 var ch = bh + (p * 2) + 1;
+var temp1, temp2;
+
+let cordx;
+let cordy;
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -86,6 +90,19 @@ function drawMap() {
     j = 2;
 }
 
+function teleport() {
+    if (y == 135 && x == 0) {
+        x = 299;
+        dirY = 0;
+        dirX = -1;
+    }
+    if (y == 135 && x == 300) {
+        x = 1;
+        dirY = 0;
+        dirX = 1;
+    }
+}
+
 function updatePos() {
     // console.log(x, y);
     rooms.doc(roomId).update({
@@ -110,7 +127,9 @@ function drawPacman(p) {
 
     spritePacmanStep += 1;
     if (spritePacmanStep == 5) {
-        spritePacmanIndx++;
+        // if (dirY != 0 && dirX != 0) {
+            spritePacmanIndx++;
+        // }
         if (spritePacmanIndx == 5) {
             spritePacmanIndx = 0;
         }
@@ -119,27 +138,64 @@ function drawPacman(p) {
 }
 
 function switchDir(p) {
-    // console.log(p);
+    //console.log(x, y);
     if ((2 * p.x) % 15 == 0 && (2 * p.y) % 15 == 0) {
         switch (p.future) {
             case 'U':
+                if (gameboard[cordx - 1][cordy] == 1) {
+                    break;
+                }
                 p.dirX = 0, p.dirY = -1, p.current = p.future, p.future = 'N';
+                something(p);
                 break;
             case 'D':
+                console.log(cordx, cordy)
+                if (gameboard[cordx + 1][cordy] == 1) {
+                    break;
+                }
                 p.dirX = 0, p.dirY = 1, p.current = p.future, p.future = 'N';
+                something(p);
                 break;
             case 'L':
+                if (gameboard[cordx][cordy - 1] == 1) {
+                    break;
+                }
                 p.dirX = -1, p.dirY = 0, p.current = p.future, p.future = 'N';
+                something(p);
                 break;
             case 'R':
+                if (gameboard[cordx][cordy + 1] == 1) {
+                    break;
+                }
                 p.dirX = 1, p.dirY = 0, p.current = p.future, p.future = 'N';
+                something(p);
                 break;
             case 'S':
                 p.dirX = 0, p.dirY = 0, p.future = 'N';
+                something(p);
                 break;
             default:
                 break;
         }
+    }
+}
+
+// document.getElementById('score').innerHTML[0].score
+
+function something() {
+    if (p.dirX == 1) {
+        cordy = cordy + 1;
+    }
+    if (p.dirX == -1) {
+        cordy = cordy - 1;
+    }
+
+    if (p.dirY == 1) {
+        cordx = cordx + 1;
+    }
+
+    if (p.dirY == -1) {
+        cordx = cordx - 1;
     }
 }
 
@@ -171,6 +227,7 @@ function checkCollision(p) {
     if (p.dirX == -1) {
         cordy = cordy - 1;
     }
+    
 
     if (p.dirY == 1) {
         cordx = cordx + 1;

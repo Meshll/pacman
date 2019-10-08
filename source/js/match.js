@@ -15,20 +15,20 @@ function createRoom() {
     }
 
     if(role == 0) {
-        position.x = 0;
-        position.y = 0;
+        position.x = 15;
+        position.y = 15;
         position.role = role;
     } else if(role == 1) {
-        position.x = 100;
-        position.y = 0;
+        position.x = 15;
+        position.y = 285;
         position.role = role;
     } else if(role == 2) {
-        position.x = 0;
-        position.y = 100;
+        position.x = 285;
+        position.y = 15;
         position.role = role;
     } else {
-        position.x = 100;
-        position.y = 100;
+        position.x = 285;
+        position.y = 285;
         position.role = role;
     }
     emptyRoom["players"][role] = {
@@ -65,20 +65,20 @@ function joinRoom(roomId) {
             }
 
             if(role == 0) {
-                position.x = 0;
-                position.y = 0;
+                position.x = 15;
+                position.y = 15;
                 position.role = role;
             } else if(role == 1) {
-                position.x = 100;
-                position.y = 0;
+                position.x = 15;
+                position.y = 285;
                 position.role = role;
             } else if(role == 2) {
-                position.x = 0;
-                position.y = 100;
+                position.x = 285;
+                position.y = 15;
                 position.role = role;
             } else {
-                position.x = 100;
-                position.y = 100;
+                position.x = 285;
+                position.y = 285;
                 position.role = role;
             }
             
