@@ -128,6 +128,13 @@ function matchMaking() {
     } else {      
         gmail();
     }
+    document.getElementById("match1").onclick = null;
+    clickajiluulaj();
+}
+function clickajiluulaj() {
+    setTimeout(() => {
+        document.getElementById("match1").onclick = matchMaking;
+    }, 25000);
 }
 
 function waitingRoom(roomId) {
@@ -136,10 +143,11 @@ function waitingRoom(roomId) {
         v = doc.data();
         Object.keys(v.players).forEach( p => {
             if (p.uid == player.uid) {
-                window.location = "/waiting_room.html"
+                window.location.href = "../waiting_room.html"
             }
         })
     }, err => {
         console.log(`Encountered error: ${err}`);
     });
+    console.log(sec)
 }
