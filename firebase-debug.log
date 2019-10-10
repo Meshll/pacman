@@ -1,25 +1,55 @@
-[debug] [2019-10-08T09:33:20.615Z] ----------------------------------------------------------------------
-[debug] [2019-10-08T09:33:20.617Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2019-10-08T09:33:20.617Z] CLI Version:   7.3.2
-[debug] [2019-10-08T09:33:20.617Z] Platform:      darwin
-[debug] [2019-10-08T09:33:20.618Z] Node Version:  v10.15.3
-[debug] [2019-10-08T09:33:20.618Z] Time:          Tue Oct 08 2019 17:33:20 GMT+0800 (Ulaanbaatar Standard Time)
-[debug] [2019-10-08T09:33:20.619Z] ----------------------------------------------------------------------
+[debug] [2019-10-10T08:18:42.193Z] ----------------------------------------------------------------------
+[debug] [2019-10-10T08:18:42.195Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-10-10T08:18:42.195Z] CLI Version:   7.4.0
+[debug] [2019-10-10T08:18:42.195Z] Platform:      darwin
+[debug] [2019-10-10T08:18:42.195Z] Node Version:  v10.15.3
+[debug] [2019-10-10T08:18:42.276Z] Time:          Thu Oct 10 2019 16:18:42 GMT+0800 (Ulaanbaatar Standard Time)
+[debug] [2019-10-10T08:18:42.276Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-10-08T09:33:20.626Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-10-08T09:33:20.626Z] > authorizing via signed-in user
-[debug] [2019-10-08T09:33:20.626Z] [iam] checking project pacman-bc51b for permissions ["firebase.projects.get"]
-[debug] [2019-10-08T09:33:20.628Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pacman-bc51b:testIamPermissions  
+[debug] [2019-10-10T08:18:42.370Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-10T08:18:42.371Z] > authorizing via signed-in user
+[debug] [2019-10-10T08:18:42.371Z] [iam] checking project pacman-bc51b for permissions ["firebase.projects.get"]
+[debug] [2019-10-10T08:18:42.373Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-10-10T08:18:42.373Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-10-10T08:18:43.302Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-10T08:18:43.429Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pacman-bc51b:testIamPermissions  
 
-[debug] [2019-10-08T09:33:24.954Z] <<< HTTP RESPONSE 200
-[debug] [2019-10-08T09:33:24.955Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b  
+[debug] [2019-10-10T08:18:44.827Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-10T08:18:44.828Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b  
  
-[debug] [2019-10-08T09:33:28.492Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-10T08:18:45.744Z] <<< HTTP RESPONSE 200
 [info] 
-[info] === Serving from '/Users/owell/Documents/GitHub/pacman'...
+[info] === Serving from '/Users/radnaasuren/Desktop/pacman'...
 [info] 
-[debug] [2019-10-08T09:33:28.495Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b/webApps/-/config  
+[debug] [2019-10-10T08:18:45.746Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b/webApps/-/config  
  
-[debug] [2019-10-08T09:33:31.756Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-10T08:18:47.385Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: source
 [info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-10-10T08:24:12.545Z] ----------------------------------------------------------------------
+[debug] [2019-10-10T08:24:12.547Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-10-10T08:24:12.547Z] CLI Version:   7.4.0
+[debug] [2019-10-10T08:24:12.547Z] Platform:      darwin
+[debug] [2019-10-10T08:24:12.547Z] Node Version:  v10.15.3
+[debug] [2019-10-10T08:24:12.548Z] Time:          Thu Oct 10 2019 16:24:12 GMT+0800 (Ulaanbaatar Standard Time)
+[debug] [2019-10-10T08:24:12.548Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-10T08:24:12.556Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-10T08:24:12.556Z] > authorizing via signed-in user
+[debug] [2019-10-10T08:24:12.556Z] [iam] checking project pacman-bc51b for permissions ["firebase.projects.get"]
+[debug] [2019-10-10T08:24:12.558Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pacman-bc51b:testIamPermissions  
+
+[debug] [2019-10-10T08:24:14.556Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-10T08:24:14.558Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b  
+ 
+[debug] [2019-10-10T08:24:16.498Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/radnaasuren/Desktop/pacman'...
+[info] 
+[debug] [2019-10-10T08:24:16.500Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b/webApps/-/config  
+ 
+[debug] [2019-10-10T08:24:17.931Z] <<< HTTP RESPONSE 200
+[warn] ⚠  hosting: Port 5000 is not available. Trying another port...
+[info] i  hosting: Serving hosting files from: source
+[info] ✔  hosting: Local server: http://localhost:5005

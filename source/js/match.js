@@ -96,7 +96,7 @@ function joinRoom(roomId) {
         console.log("Succesfully joined to ", roomId);
         waitingRoom(roomId);
     }).catch(function(err) {
-        console.error(err);
+        console.log(err);
     });
 }
 
@@ -134,12 +134,11 @@ function waitingRoom(roomId) {
     rooms.doc(roomId).onSnapshot(doc => {
         v = doc.data();
         Object.keys(v.players).forEach( p => {
-            if (p.uid == player.uid) {
-                window.location.href = "../waiting_room.html"
+            if (v.players[p]["uid"] == player.uid) {
+                window.location.href = "./waiting_room.html"
             }
         })
     }, err => {
         console.log(`Encountered error: ${err}`);
     });
-    console.log(sec)
 }
