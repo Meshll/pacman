@@ -34,7 +34,8 @@ function createRoom() {
     }
     emptyRoom["players"][role] = {
         displayName: player.displayName,
-        uid: player.uid
+        uid: player.uid,
+        role: role
     }
     users.doc(player.uid).update({
         role: role,
@@ -89,7 +90,8 @@ function joinRoom(roomId) {
             if (r.state <= 3) {
                 r["players"][role] = {
                     displayName: player.displayName,
-                    uid: player.uid
+                    uid: player.uid,
+                    role: role
                 }
 
                 users.doc(player.uid).update({
