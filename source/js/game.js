@@ -16,7 +16,7 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 var me;
-var players;
+var players = {};
 
 // var x = 15;
 // var y = 15;
@@ -61,20 +61,19 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 function updateOtherPlayers(roomId) {
     rooms.doc(roomId).onSnapshot(doc => {
-        players = [{ null: true }, { null: true }, { null: true }];
         let ind = 0;
         let ps = doc.data().players;
         Object.keys(ps).forEach(function (p) {
-            // console.log(ps[p]);
-            // console.log(player.uid);
+            console.log(ps[p].uid);
+            // console.log(player.uid);     
             if (ps[p].uid != player.uid) {
-                users.doc(player.uid).onSnapshot(doc => {
-                    players[ind] = doc.data().position;
+                console.log('xaxa',ps[p].uid);
+                users.doc(ps[p].uid).onSnapshot(doc => {
+                    players[ps[p].uid] = doc.data().position;
                 }, err => {
                     console.log(`Encountered error: ${err}`);
                 });
             }
-            ind = ind + 1;
         })
     })
 }
@@ -150,6 +149,8 @@ function drawPacman(p) {
 }
 
 function switchDir(p) {
+    if (p.dirX == 1 && )
+
     let cordx;
     let cordy;
     // console.log(p);
@@ -295,10 +296,8 @@ function draw() {
     drawPacman(me);
     // checkCollision();
 
-    players.forEach((p) => {
-        if (!('null' in p)) {
-            drawPacman(p);
-        }
+    Object.keys(players).forEach((uid) => {
+        drawPacman(players[uid]);
     })
 
     // console.log(x, y);
