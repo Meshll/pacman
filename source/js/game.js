@@ -4,7 +4,7 @@ const rooms = firebase.firestore().collection('rooms');
 const users = firebase.firestore().collection('users');
 
 var pp;
-
+var score = 0;
 var bw = 300;
 var bh = 300;
 var p = 10;
@@ -61,7 +61,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 function updateOtherPlayers(roomId) {
     rooms.doc(roomId).onSnapshot(doc => {
-        let ind = 0;
+        // let ind = 0;
         let ps = doc.data().players;
         Object.keys(ps).forEach(function (p) {
             console.log(ps[p].uid);
@@ -148,8 +148,27 @@ function drawPacman(p) {
     }
 }
 
+function addscore() {
+    console.log("ene ajilj bna");
+    score = score + 10;
+  
+    document.getElementById("score").innerHTML ="SCORE " + score;
+ 
+}
+
 function switchDir(p) {
-    if (p.dirX == 1 && )
+    if (p.dirX == 1 && p.future == 'L') {
+        p.dirX = -1;
+    }
+    if (p.dirX == -1 && p.future == 'R') {
+        p.dirX = 1;
+    }
+    if (p.dirY == 1 && p.future == 'U') {
+        p.dirY = -1;
+    }
+    if (p.dirY == -1 && p.future == 'D') {
+        p.dirY = 1;
+    }
 
     let cordx;
     let cordy;
@@ -269,8 +288,10 @@ function checkCollision(p) {
 
     if (gameboard[cordx][cordy] == 2) {
         gameboard[cordx][cordy] = 0;
-        // addscore();
+        console.log("ym idej bna");
+        addscore();
     }
+    
     // ghost only
     // if (gameboard[cordx][cordy] == 3) {
     //     gameboard[cordx][cordy] = 0;

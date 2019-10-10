@@ -1,0 +1,29 @@
+[debug] [2019-10-10T09:36:51.229Z] ----------------------------------------------------------------------
+[debug] [2019-10-10T09:36:51.231Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-10-10T09:36:51.231Z] CLI Version:   7.3.2
+[debug] [2019-10-10T09:36:51.231Z] Platform:      darwin
+[debug] [2019-10-10T09:36:51.231Z] Node Version:  v10.15.3
+[debug] [2019-10-10T09:36:51.232Z] Time:          Thu Oct 10 2019 17:36:51 GMT+0800 (Ulaanbaatar Standard Time)
+[debug] [2019-10-10T09:36:51.232Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-10T09:36:51.278Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-10T09:36:51.279Z] > authorizing via signed-in user
+[debug] [2019-10-10T09:36:51.279Z] [iam] checking project pacman-bc51b for permissions ["firebase.projects.get"]
+[debug] [2019-10-10T09:36:51.280Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-10-10T09:36:51.280Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-10-10T09:36:51.716Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-10T09:36:51.782Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pacman-bc51b:testIamPermissions  
+
+[debug] [2019-10-10T09:36:53.268Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-10T09:36:53.269Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b  
+ 
+[debug] [2019-10-10T09:36:54.226Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/owell/Documents/GitHub/pacman'...
+[info] 
+[debug] [2019-10-10T09:36:54.228Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b/webApps/-/config  
+ 
+[debug] [2019-10-10T09:36:55.370Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: source
+[info] ✔  hosting: Local server: http://localhost:5000
