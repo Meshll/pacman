@@ -1,9 +1,10 @@
 var player, index, roomId, role;
 const db = firebase.firestore();
 const rooms = firebase.firestore().collection('rooms');
+const users = firebase.firestore().collection('users');
 
 var pp;
-
+var score = 0;
 var bw = 300;
 var bh = 300;
 var p = 10;
@@ -11,14 +12,11 @@ var cw = bw + (p * 2) + 1;
 var ch = bh + (p * 2) + 1;
 var temp1, temp2;
 
-let cordx;
-let cordy;
-
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
 var me;
-var players;
+var players = {};
 
 // var x = 15;
 // var y = 15;
@@ -27,12 +25,12 @@ var players;
 // var current = 'R';
 // var future = 'N';
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         player = user;
         rooms.get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
                     let room = doc.data();
                     Object.keys(room.players).forEach((p) => {
                         console.log(p);
@@ -40,19 +38,18 @@ firebase.auth().onAuthStateChanged(function(user) {
                             roomId = doc.id;
                             index = p;
 
-                            me = room["players"][p]["position"];
-                            // me.x = 15;
-                            // me.y = 285;
-                            // console.log(me);
+                            users.doc(player.uid).get().then(doc => {
+                                me = doc.data().position;
+                            })
 
                             updateOtherPlayers(roomId);
-                            setInterval(draw, 10);
+                            setInterval(draw, 20);
                             // setInterval(update, 1000);
                         }
                     })
                 });
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.log("error", error);
             });
 
@@ -62,10 +59,23 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
-function updateOtherPlayers(roomId){
-    rooms.doc(roomId).onSnapshot(function(doc) {
-        players = doc.data().players;
-    });
+function updateOtherPlayers(roomId) {
+    rooms.doc(roomId).onSnapshot(doc => {
+        // let ind = 0;
+        let ps = doc.data().players;
+        Object.keys(ps).forEach(function (p) {
+            console.log(ps[p].uid);
+            // console.log(player.uid);     
+            if (ps[p].uid != player.uid) {
+                console.log('xaxa',ps[p].uid);
+                users.doc(ps[p].uid).onSnapshot(doc => {
+                    players[ps[p].uid] = doc.data().position;
+                }, err => {
+                    console.log(`Encountered error: ${err}`);
+                });
+            }
+        })
+    })
 }
 
 
@@ -90,27 +100,28 @@ function drawMap() {
     j = 2;
 }
 
-function teleport() {
-    if (y == 135 && x == 0) {
-        x = 299;
-        dirY = 0;
-        dirX = -1;
+function teleport(p) {
+    if (p.y == 135 && p.x == 16) {
+        p.x = 283;
+        p.dirY = 0;
+        p.dirX = -1;
     }
-    if (y == 135 && x == 300) {
-        x = 1;
-        dirY = 0;
-        dirX = 1;
+    if (p.y == 135 && p.x == 284) {
+        p.x = 17;
+        p.dirY = 0;
+        p.dirX = 1;
     }
 }
 
 function updatePos() {
     // console.log(x, y);
-    rooms.doc(roomId).update({
-        [`players.${index}.position`] : me
+    users.doc(player.uid).update({
+        position: me
     })
 }
 
 function drawPacman(p) {
+    teleport(p);
     checkCollision(p);
     if (p.current == 'R') {
         ctx.drawImage(spritePacmanRight[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
@@ -126,9 +137,9 @@ function drawPacman(p) {
     }
 
     spritePacmanStep += 1;
-    if (spritePacmanStep == 5) {
+    if (spritePacmanStep == 3) {
         // if (dirY != 0 && dirX != 0) {
-            spritePacmanIndx++;
+        spritePacmanIndx++;
         // }
         if (spritePacmanIndx == 5) {
             spritePacmanIndx = 0;
@@ -137,8 +148,45 @@ function drawPacman(p) {
     }
 }
 
+function addscore() {
+    console.log("ene ajilj bna");
+    score = score + 10;
+  
+    document.getElementById("score").innerHTML ="SCORE " + score;
+ 
+}
+
 function switchDir(p) {
-    //console.log(x, y);
+    if (p.dirX == 1 && p.future == 'L') {
+        p.dirX = -1;
+    }
+    if (p.dirX == -1 && p.future == 'R') {
+        p.dirX = 1;
+    }
+    if (p.dirY == 1 && p.future == 'U') {
+        p.dirY = -1;
+    }
+    if (p.dirY == -1 && p.future == 'D') {
+        p.dirY = 1;
+    }
+
+    let cordx;
+    let cordy;
+    // console.log(p);
+
+    if (p.dirY == 0 && p.dirX == 0) {
+        cordx = Math.round(p.y / 15);
+        cordy = Math.round(p.x / 15);
+    }
+    if (p.dirY == -1 || p.dirX == -1) {
+        cordx = Math.ceil(p.y / 15);
+        cordy = Math.ceil(p.x / 15);
+    }
+    if (p.dirX == 1 || p.dirY == 1) {
+        cordy = Math.floor(p.x / 15);
+        cordx = Math.floor(p.y / 15);
+    }
+    // console.log(cordx, cordy);
     if ((2 * p.x) % 15 == 0 && (2 * p.y) % 15 == 0) {
         switch (p.future) {
             case 'U':
@@ -227,7 +275,7 @@ function checkCollision(p) {
     if (p.dirX == -1) {
         cordy = cordy - 1;
     }
-    
+
 
     if (p.dirY == 1) {
         cordx = cordx + 1;
@@ -235,13 +283,15 @@ function checkCollision(p) {
 
     if (p.dirY == -1) {
         cordx = cordx - 1;
-    }   
+    }
     // console.log(cordx, cordy);
 
     if (gameboard[cordx][cordy] == 2) {
         gameboard[cordx][cordy] = 0;
-        // addscore();
+        console.log("ym idej bna");
+        addscore();
     }
+    
     // ghost only
     // if (gameboard[cordx][cordy] == 3) {
     //     gameboard[cordx][cordy] = 0;
@@ -257,7 +307,7 @@ function checkCollision(p) {
             p.y = p.y + p.dirY;
         }
     }
-    // retur    n p;
+    // return p;
 }
 
 function draw() {
@@ -267,10 +317,8 @@ function draw() {
     drawPacman(me);
     // checkCollision();
 
-    Object.keys(players).forEach((p) => {
-        if (players[p]["uid"] != player.uid) {
-            drawPacman(players[p]["position"]);
-        }
+    Object.keys(players).forEach((uid) => {
+        drawPacman(players[uid]);
     })
 
     // console.log(x, y);
