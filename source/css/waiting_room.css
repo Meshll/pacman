@@ -21,12 +21,12 @@ body {
     font-size: 50px;
     color: yellow;
     height: 50px;
-    margin-top: 98px;
+    margin-top: 8vh;
 }
 
 .mid-container {
     width: calc(100% - 50px);
-    height: 50vh;
+    height: 58vh;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.5);
     font-family: 'Press Start 2P', cursive;
@@ -51,13 +51,12 @@ body {
 
 .loading-text {
     width: 80%;
-    height: 60px;
-    margin-top: 20px;
-}
+    height: 25px;
+    margin-top: 2vh
 
 .players {
     width: 40%;
-    height: 150px;
+    height: 21vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
