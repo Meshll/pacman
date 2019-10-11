@@ -1,29 +1,29 @@
-[debug] [2019-10-11T06:32:39.479Z] ----------------------------------------------------------------------
-[debug] [2019-10-11T06:32:39.481Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2019-10-11T06:32:39.481Z] CLI Version:   7.4.0
-[debug] [2019-10-11T06:32:39.482Z] Platform:      darwin
-[debug] [2019-10-11T06:32:39.482Z] Node Version:  v10.15.3
-[debug] [2019-10-11T06:32:39.482Z] Time:          Fri Oct 11 2019 14:32:39 GMT+0800 (Ulaanbaatar Standard Time)
-[debug] [2019-10-11T06:32:39.482Z] ----------------------------------------------------------------------
+[debug] [2019-10-11T10:19:26.193Z] ----------------------------------------------------------------------
+[debug] [2019-10-11T10:19:26.225Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-10-11T10:19:26.225Z] CLI Version:   6.11.0
+[debug] [2019-10-11T10:19:26.225Z] Platform:      darwin
+[debug] [2019-10-11T10:19:26.225Z] Node Version:  v10.15.3
+[debug] [2019-10-11T10:19:26.420Z] Time:          Fri Oct 11 2019 18:19:26 GMT+0800 (Ulaanbaatar Standard Time)
+[debug] [2019-10-11T10:19:26.420Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-10-11T06:32:39.565Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-10-11T06:32:39.565Z] > authorizing via signed-in user
-[debug] [2019-10-11T06:32:39.565Z] [iam] checking project pacman-bc51b for permissions ["firebase.projects.get"]
-[debug] [2019-10-11T06:32:39.567Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-10-11T06:32:39.567Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2019-10-11T10:19:26.547Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-11T10:19:26.547Z] > authorizing via signed-in user
+[debug] [2019-10-11T10:19:26.547Z] [iam] checking project pacman-bc51b for permissions ["firebase.projects.get"]
+[debug] [2019-10-11T10:19:26.549Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-10-11T10:19:26.550Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  <request body omitted>
-[debug] [2019-10-11T06:32:41.721Z] <<< HTTP RESPONSE 200
-[debug] [2019-10-11T06:32:41.815Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pacman-bc51b:testIamPermissions  
+[debug] [2019-10-11T10:19:31.906Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-11T10:19:32.149Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pacman-bc51b:testIamPermissions  
 
-[debug] [2019-10-11T06:32:44.900Z] <<< HTTP RESPONSE 200
-[debug] [2019-10-11T06:32:44.901Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b  
+[debug] [2019-10-11T10:19:36.606Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-11T10:19:36.607Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/pacman-bc51b  
  
-[debug] [2019-10-11T06:32:47.628Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-11T10:19:39.879Z] <<< HTTP RESPONSE 200
 [info] 
-[info] === Serving from '/Users/radnaasuren/Desktop/pacman'...
+[info] === Serving from '/Users/misheel/Documents/pacman'...
 [info] 
-[debug] [2019-10-11T06:32:47.631Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pacman-bc51b/webApps/-/config  
+[debug] [2019-10-11T10:19:39.914Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/267164456667/clients/_:getWebAppConfig  
  
-[debug] [2019-10-11T06:32:49.175Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-11T10:19:44.439Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: source
 [info] ✔  hosting: Local server: http://localhost:5000

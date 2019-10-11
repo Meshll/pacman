@@ -61,10 +61,13 @@ function joinRoom(roomId) {
 
             Object.keys(r.players).forEach(p => {
                 var index = p;
-                slots.splice(index, 1);
+                slots = slots.filter((v) => {return v != p});
             })
 
             let role = slots[Math.floor(Math.random() * slots.length)]
+
+            console.log(slots);
+            console.log(role);
             let position = {
                 x : 0, y : 0, current: 'R', future: 'N', dirX: 1, dirY: 0, role: 0
             }
@@ -88,6 +91,7 @@ function joinRoom(roomId) {
             }
             
             if (r.state <= 3) {
+                console.log(role);
                 r["players"][role] = {
                     displayName: player.displayName,
                     uid: player.uid,
