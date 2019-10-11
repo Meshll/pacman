@@ -44,6 +44,9 @@ function roomLoader(roomId) {
                document.getElementById("player" + room.players[p].role).children[0].src = "./images/loader_pacman_active.png";
             }
             document.getElementById("player" + room.players[p].role).children[1].innerHTML = room.players[p].displayName.split(' ')[0];
+            if (room.players.state == 4) {
+                window.href = "/login.html"
+            }
         })
     });
 }
