@@ -26,7 +26,7 @@ body {
 
 .mid-container {
     width: calc(100% - 50px);
-    height: 58vh;
+    height: 51vh;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.5);
     font-family: 'Press Start 2P', cursive;
@@ -34,7 +34,13 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
 }
-
+.space {
+    padding-bottom: 1vh;
+    /* margin-bottom: 2%; */
+}
+.spac2 {
+    margin-left: 1vh;
+}
 .play {
     color: black;
     font-family: 'Press Start 2P', cursive;
@@ -52,10 +58,11 @@ body {
 .loading-text {
     width: 80%;
     height: 25px;
-    margin-top: 2vh
+    margin-top: 3vh;
 }
 
 .players {
+    font-size: 1.6vh;
     width: 40%;
     height: 21vh;
     display: flex;

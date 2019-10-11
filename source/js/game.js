@@ -123,17 +123,44 @@ function updatePos() {
 function drawPacman(p) {
     teleport(p);
     checkCollision(p);
-    if (p.current == 'R') {
-        ctx.drawImage(spritePacmanRight[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+    if (p.role == 2 || p.role == 3){
+        if (me.role % 2 == p.role % 2){
+            if (p.current == 'R') {
+                ctx.drawImage(spritePacmanRight[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+            if (p.current == 'L') {
+                ctx.drawImage(spritePacmanLeft[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+            if (p.current == 'D') {
+                ctx.drawImage(spritePacmanDown[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+            if (p.current == 'U') {
+                ctx.drawImage(spritePacmanUp[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+        }
+        else {
+            if (p.current == 'R') {
+                ctx.drawImage(spriteEnemyPacmanRight[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+            if (p.current == 'L') {
+                ctx.drawImage(spriteEnemyPacmanLeft[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+            if (p.current == 'D') {
+                ctx.drawImage(spriteEnemyPacmanDown[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+            if (p.current == 'U') {
+                ctx.drawImage(spriteEnemyPacmanUp[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+            }
+        }
     }
-    if (p.current == 'L') {
-        ctx.drawImage(spritePacmanLeft[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
-    }
-    if (p.current == 'D') {
-        ctx.drawImage(spritePacmanDown[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
-    }
-    if (p.current == 'U') {
-        ctx.drawImage(spritePacmanUp[spritePacmanIndx], p.x + 3, p.y + 3, 15, 15);
+
+    if (p.role == 0 || p.role == 1){
+        if (me.role % 2 == p.role % 2){
+            ctx.drawImage(spriteGhost[spriteGhostIndx], p.x + 3, p.y + 3, 15, 15);
+        }
+        else {
+            ctx.drawImage(spriteEnemyGhost[spriteGhostIndx], p.x + 3, p.y + 3, 15, 15);
+        }
     }
 
     spritePacmanStep += 1;
@@ -145,6 +172,17 @@ function drawPacman(p) {
             spritePacmanIndx = 0;
         }
         spritePacmanStep = 0;
+    }
+
+    spriteGhostStep += 1;
+    if (spriteGhostStep == 10) {
+        // if (dirY != 0 && dirX != 0) {
+        spriteGhostIndx++;
+        // }
+        if (spriteGhostIndx == 2) {
+            spriteGhostIndx = 0;
+        }
+        spriteGhostStep = 0;
     }
 }
 
