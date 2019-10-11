@@ -25,15 +25,15 @@ firebase.auth().onAuthStateChanged(function(user) {
                 console.log("error", error);
             });
     } else {
-        window.href = "/login.html"
+        window.location = "/login.html";
     }
 });
 
 
 function roomLoader(roomId) {
-    console.log(roomId);
+    // console.log(roomId);
     rooms.doc(roomId).onSnapshot(function(doc) {
-        console.log("Current data: ", doc.data());
+        // console.log("Current data: ", doc.data());
         var room = doc.data();
         Object.keys(room.players).forEach((p) => {
             if (room.players[p].role == 0 || room.players[p].role == 1) {
@@ -44,9 +44,10 @@ function roomLoader(roomId) {
                document.getElementById("player" + room.players[p].role).children[0].src = "./images/loader_pacman_active.png";
             }
             document.getElementById("player" + room.players[p].role).children[1].innerHTML = room.players[p].displayName.split(' ')[0];
-            if (room.players.state == 4) {
-                window.href = "/login.html"
-            }
         })
+        // console.log('XAXA', room.state);
+        if (room.state == 4) {
+            window.location = "/index.html"
+        }
     });
 }
