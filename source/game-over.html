@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta name = "viewport" content = "width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
-        <link rel = "stylesheet" type = "text/css" href = "../CSS/style.css">
+        <link rel = "stylesheet" type = "text/css" href = "./css/game-over.css">
         <link href = "https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel = "stylesheet">
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -30,7 +30,7 @@
     <body>
         <div class = "container">
             <div class = "game-over">
-                GAME OVER
+                <center> GAME OVER </center>
             </div>
             <div class = "coins">
                 Insert coins to <center> continue </center>
@@ -38,12 +38,17 @@
             <div class = "score">
                 YOUR SCORE
             </div>
-            <div class = "replay">
+            <div class = "replay" onclick="home()">
                 Replay
             </div>
-            <div class = "exit">
+            <div class = "exit" onclick="home()">
                 EXIT
             </div>
         </div>
+        <script>
+            function home() {
+                window.location.href = 'login.html';
+            }
+        </script>
     </body>
 </html>

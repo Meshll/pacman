@@ -1,8 +1,9 @@
-var player, index, roomId, role;
+var player = {}, index, roomId, role;
 const db = firebase.firestore();
 const rooms = firebase.firestore().collection('rooms');
 const users = firebase.firestore().collection('users');
 
+var interval = null;
 var pp;
 var score = 0;
 var bw = 300;
@@ -32,18 +33,20 @@ firebase.auth().onAuthStateChanged(function (user) {
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     let room = doc.data();
+                    if(room.gameOver == 0)
                     Object.keys(room.players).forEach((p) => {
                         console.log(p);
-                        if (room["players"][p]["uid"] == player.uid) {
+                        if(room["players"][p]["uid"] == player.uid) {
+
                             roomId = doc.id;
                             index = p;
 
                             users.doc(player.uid).get().then(doc => {
                                 me = doc.data().position;
                             })
-
+                            // setInterval(updatePos, 300);
                             updateOtherPlayers(roomId);
-                            setInterval(draw, 20);
+                            interval = setInterval(draw, 20);
                             // setInterval(update, 1000);
                         }
                     })
@@ -62,6 +65,11 @@ firebase.auth().onAuthStateChanged(function (user) {
 function updateOtherPlayers(roomId) {
     rooms.doc(roomId).onSnapshot(doc => {
         // let ind = 0;
+        console.log(doc.data().gameOver)
+        if(doc.data().gameOver == 1) {
+            gameOver();
+            return;
+        }
         let ps = doc.data().players;
         Object.keys(ps).forEach(function (p) {
             console.log(ps[p].uid);
@@ -70,6 +78,11 @@ function updateOtherPlayers(roomId) {
                 console.log('xaxa',ps[p].uid);
                 users.doc(ps[p].uid).onSnapshot(doc => {
                     players[ps[p].uid] = doc.data().position;
+                    rooms.doc(roomId).get.then(doc => {
+                        if(doc.data().gameOver == 1) {
+                            gameOver();
+                        }
+                    })
                 }, err => {
                     console.log(`Encountered error: ${err}`);
                 });
@@ -114,7 +127,6 @@ function teleport(p) {
 }
 
 function updatePos() {
-    // console.log(x, y);
     users.doc(player.uid).update({
         position: me
     })
@@ -187,7 +199,7 @@ function drawPacman(p) {
 }
 
 function addscore() {
-    console.log("ene ajilj bna");
+    // console.log("ene ajilj bna");
     score = score + 10;
   
     document.getElementById("score").innerHTML ="SCORE " + score;
@@ -324,9 +336,9 @@ function checkCollision(p) {
     }
     // console.log(cordx, cordy);
 
-    if (gameboard[cordx][cordy] == 2) {
+    if (gameboard[cordx][cordy] == 2 && (p.role == 2 || p.role == 3)) {
         gameboard[cordx][cordy] = 0;
-        console.log("ym idej bna");
+        // console.log("ym idej bna");
         addscore();
     }
     
@@ -348,9 +360,64 @@ function checkCollision(p) {
     // return p;
 }
 
+function gameOver() {
+    clearInterval(interval);
+    console.log('game Over');
+    window.location.href = './game-over.html';
+}
+
+function getCord(p, pos) {
+    let cordx = pos[p.role].x;
+    let cordy = pos[p.role].y;
+
+    if (p.dirY == 0 && p.dirX == 0) {
+        cordx = Math.round(p.y / 15);
+        cordy = Math.round(p.x / 15);
+    }
+    if (p.dirY == -1 || p.dirX == -1) {
+        cordx = Math.ceil(p.y / 15);
+        cordy = Math.ceil(p.x / 15);
+    }
+    if (p.dirX == 1 || p.dirY == 1) {
+        cordy = Math.floor(p.x / 15);
+        cordx = Math.floor(p.y / 15);
+    }
+    pos[p.role].x = cordx;
+    pos[p.role].y = cordy;
+    return pos;
+}
+
+// function getPlayersCord(pos) {
+//     return new Promise(res => {
+//         Object.keys(players).forEach((uid) => {
+//             pos = getCord(players[uid], pos);
+//         })
+//         res(pos)
+//     })
+// }
+
+let pos;
+async function checkPacmanGhost() {
+    // 0-2 -> teamA
+    // 1-3 -> teamB
+    pos = [{ x : 0, y : 1}, {x : 0, y : 2}, {x : 0, y : 3}, {x : 0, y : 4}]
+    pos = getCord(me, pos);
+    Object.keys(players).forEach((uid) => {
+        pos = getCord(players[uid], pos);
+    })
+
+    if((pos[0].x == pos[3].x && pos[0].y == pos[3].y) || (pos[1].x == pos[2].x && pos[1].y == pos[2].y)) {
+        await rooms.doc(roomId).update({
+            gameOver : 1
+        })
+        gameOver();
+    }
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // drawBoard();
+    checkPacmanGhost();
     drawMap();
     drawPacman(me);
     // checkCollision();

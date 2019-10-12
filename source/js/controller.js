@@ -53,4 +53,5 @@ function sendKeys(v){
     if (v == 'D'){
         goDown(me);
     }
+    updatePos();
 }

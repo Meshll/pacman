@@ -3,7 +3,8 @@ const db = firebase.firestore();
 const rooms = firebase.firestore().collection('rooms');
 const users = firebase.firestore().collection('users');
 
-function createRoom() {
+
+async function createRoom() {
     var slots = Array(0, 1, 2, 3);
     let role = slots[Math.floor(Math.random() * slots.length)]
     let position = {
@@ -12,7 +13,8 @@ function createRoom() {
 
     var emptyRoom = {
         "players": {},
-        "state": 1
+        "state": 1,
+        "gameOver" : 0
     }
 
     if(role == 0) {
@@ -37,7 +39,7 @@ function createRoom() {
         uid: player.uid,
         role: role
     }
-    users.doc(player.uid).update({
+    await users.doc(player.uid).update({
         role: role,
         position: position
     });
@@ -50,11 +52,11 @@ function createRoom() {
     });
 }
 
-function joinRoom(roomId) {
+async function joinRoom(roomId) {
     let room = rooms.doc(roomId);
 
-    db.runTransaction(function(transaction) {
-        return transaction.get(room).then(function(doc) {
+    db.runTransaction(async function(transaction) {
+        return transaction.get(room).then(async function(doc) {
             let r = doc.data();
             console.log(r);
             var slots = Array(0, 1, 2, 3);
@@ -97,13 +99,11 @@ function joinRoom(roomId) {
                     uid: player.uid,
                     role: role
                 }
-
-                users.doc(player.uid).update({
+                await users.doc(player.uid).update({
                     role: role,
                     position: position
                 });
-
-                transaction.update(room, { state: r.state + 1, players: r.players });
+                await transaction.update(room, { state: r.state + 1, players: r.players });
             }
         });
     }).then(function() {
@@ -116,17 +116,18 @@ function joinRoom(roomId) {
 
 function matchMaking() {
     if (player) {
-        rooms.where("state", "<=", 3).limit(1)
+        rooms.where("gameOver", "==", 0)
             .get()
             .then(function(querySnapshot) {
-                if (querySnapshot.empty) {
-                    console.log("Create Room");
-                    createRoom();
-                }
+                let k = 0;
                 querySnapshot.forEach(function(doc) {
                     console.log(doc.id, " => ", doc.data());
-                    joinRoom(doc.id);
+                    if(k == 0 && doc.data().state <= 3) {
+                        joinRoom(doc.id);
+                        k = 1;
+                    }
                 });
+                if(k == 0) createRoom();
             })
             .catch(function(error) {
                 console.log("error", error);
@@ -147,6 +148,7 @@ function waitingRoom(roomId) {
     console.log('waiting room to load ', roomId);
     rooms.doc(roomId).onSnapshot(doc => {
         v = doc.data();
+        if(v.gameOver == 0)
         Object.keys(v.players).forEach( p => {
             if (v.players[p]["uid"] == player.uid) {
                 window.location.href = "./waiting_room.html"
