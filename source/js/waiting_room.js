@@ -25,7 +25,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 console.log("error", error);
             });
     } else {
-        window.location = "/login.html";
+        window.location = "/index.html";
     }
 });
 
@@ -47,7 +47,7 @@ function roomLoader(roomId) {
         })
         // console.log('XAXA', room.state);
         if (room.state == 4) {
-            window.location = "/index.html"
+            window.location = "/game.html"
         }
     });
 }

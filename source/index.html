@@ -1,13 +1,22 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="manifest" href="manifest.json">
 
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
 
     <script>
         // Your web app's Firebase configuration
@@ -20,24 +29,65 @@
             messagingSenderId: "267164456667",
             appId: "1:267164456667:web:51b4d9383980b61ccc9efe"
         };
-        // Initialize Firebase
+        // Initialize Firebases
         firebase.initializeApp(firebaseConfig);
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+            .then(function () {
+                console.log('Service Worker Registered');
+            });
+        }
+
     </script>
+
 </head>
 
-<body style=" background: black;">
-    <div id="score" class="header">SCORE 000</div>
-    <canvas id="canvas" width="320" height="320"></canvas>
-    <div class="chili">PROGRESS</div>
-    <div class="dpad">
-        <img onclick="sendKeys('U')" class="arrow up" src="images/arrow-up.png" />
-        <img onclick="sendKeys('L')" class="arrow left" src="images/arrow-left.png" />
-        <img onclick="sendKeys('R')" class="arrow right" src="images/arrow-right.png" />
-        <img onclick="sendKeys('D')" class="arrow down" src="images/arrow-down.png" />
+<body id="papa">
+    <div class="title">PAC-MAN</div>
+    <div class="withLogIn hide">
+        <div id="match1" class="play-button" onclick="matchMaking(),this.disabled=true;"></div>
+        <div class="press">Press "PLAY"</div>
     </div>
-    <script src="js/load.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/controller.js"></script>
+    <div class="withoutLogIn">
+        <div class="play-button" onclick="gmail()"></div>
+        <div class="press">Press "PLAY"</div>
+    </div>
+    <div onclick="login()" class="googleSignIn">
+        <div class="gicon"></div>
+        <div>Login with Google</div>
+    </div>
+
+    
+    
+    
+    <div class="rectangle-2 hide">
+        <div class="x" onclick="back1()"><img src="images/icon _ cancel.png" alt=""></div>
+        <div class="pleaselogin" style="text-align: center">PLEASE LOG IN TO <br> YOUR GOOGLE ACCOUNT</div>
+        <div onclick="login()" class="googleSignIn2">
+            <div class="gicon2"></div>
+            <div>Login with Google</div>
+        </div>            
+    </div>
+
+    <div class="info hide" id="haha">
+            <div class="login">
+                <div>Logged in as</div>
+                <div id="username"></div>
+            </div>
+            <div onclick="signOutpage()" class="signout">Sign out</div>
+    </div>
+
+    <div class="rectangle-3 hide" id="hide">
+        <div class="icon-cancel" onclick="back()"><img src="images/icon _ cancel.png" alt=""></div>
+        <div class="sure">ARE YOU SURE WANT <br> SIGN OUT?</div>
+        <div class="group" onclick="realsignout()">SIGN OUT</div>
+    </div>
+
+
+    <script src="js/match.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>
